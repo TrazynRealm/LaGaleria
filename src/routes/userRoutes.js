@@ -3,7 +3,7 @@ const router = express.Router();
 
 // GET para mostrar la página de inicio de sesión en la raíz de la aplicación
 router.get('/', (req, res) => {
-    res.render('login');
+    res.render('index');
 });
 
 // GET para mostrar otra página (por ejemplo, la página de inicio)
