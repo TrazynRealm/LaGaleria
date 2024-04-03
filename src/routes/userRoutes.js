@@ -11,4 +11,9 @@ router.get('/home', (req, res) => {
     res.render('home');
 });
 
+// GET para mostrar la página de productos
+router.get('/products', (req, res) => {
+    res.render('products/index');
+});
+
 module.exports = router;
