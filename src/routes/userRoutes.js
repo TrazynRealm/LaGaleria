@@ -11,4 +11,13 @@ router.get('/home', (req, res) => {
     res.render('home');
 });
 
+// GET para mostrar la página de productos
+router.get('/products', (req, res) => {
+    res.render('products/index');
+});
+
+// GET para mostrar la página de producto concreto
+router.get('/products/product', (req, res) => {
+    res.render('products/product');
+});
 module.exports = router;
