@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const productController = require('./productController');
+const forumController = require('./forumController')
 
 // GET para mostrar la página de inicio de sesión en la raíz de la aplicación
 router.get('/', (req, res) => {
@@ -19,10 +20,11 @@ router.get('/home', (req, res) => {
     res.render('home');
 });
 
-// GET para mostrar la página de productos
 router.get('/products', (req, res) => {
-    res.render('products/index');
+    const products = productController.getProductList(); // Cambiar getProductList a través de productController
+    res.render('products/index', { products });
 });
+
 
 // GET para mostrar la página de detalle de un producto específico
 router.get('/products/:productId', (req, res) => {
@@ -41,6 +43,13 @@ router.get('/welcome', (req, res) => {
     ];
 
     res.render('welcome/index', { sets });
+});
+
+// Ruta para mostrar la página principal del foro
+router.get('/forum', (req, res) => {
+    const categories = forumController.getForumCategories(); // Obtén las categorías del foro
+    const topics = forumController.getLatestTopics(); // Obtén los últimos temas del foro
+    res.render('forum/index', { categories, topics }); // Renderiza la vista y pasa las categorías y los temas como datos
 });
 
 module.exports = router;
