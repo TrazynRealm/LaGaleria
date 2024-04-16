@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const productController = require('./productController');
 
 // GET para mostrar la página de inicio de sesión en la raíz de la aplicación
 router.get('/', (req, res) => {
@@ -23,9 +24,11 @@ router.get('/products', (req, res) => {
     res.render('products/index');
 });
 
-// GET para mostrar la página de producto concreto
-router.get('/products/product', (req, res) => {
-    res.render('products/product');
+// GET para mostrar la página de detalle de un producto específico
+router.get('/products/:productId', (req, res) => {
+    const productId = req.params.productId;
+    const product = productController.getProductById(productId); // Corregido aquí
+    res.render('products/detail', { product });
 });
 
 // GET para mostrar la página de inicio con sets

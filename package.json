@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "npx postcss public/css/general-in.css -o public/css/general-out.css --watch & nodemon index.js",
+    "dev": "npx postcss public/css/general-in.css -o public/css/general-out.css --watch",
     "build": "postcss src/style.css -o public/styles.css",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tailwind:css": "postcss public/css/general-in.css -o public/css/general-out.css"
+    "tailwind:css": "postcss public/css/general-in.css -o public/css/general-out.css --watch"
   },
   "keywords": [],
   "author": "",
