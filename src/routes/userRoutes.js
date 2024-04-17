@@ -52,4 +52,13 @@ router.get('/forum', (req, res) => {
     res.render('forum/index', { categories, topics }); // Renderiza la vista y pasa las categorías y los temas como datos
 });
 
+router.get('/forum/topic/:topicId', (req, res) => {
+    const topicId = req.params.topicId;
+    const topic = forumController.getTopicById(topicId); // Corregir aquí
+    const responses = forumController.getTopicResponses(topicId);
+    res.render('forum/topic', { topic, responses }); // Renderizar la vista y pasar el tema como datos
+});
+
+
+
 module.exports = router;

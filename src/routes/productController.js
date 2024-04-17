@@ -22,6 +22,13 @@ function getProductById(productId) {
       image: "url_de_la_imagen",
       description: "Descripción del producto 3",
     },
+    {
+      id: 4,
+      name: "Product 4",
+      price: 250,
+      image: "url_de_la_imagen",
+      description: "Descripción del producto 4",
+    },
   ];
 
   // Buscar el producto por ID
