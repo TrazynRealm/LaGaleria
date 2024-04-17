@@ -1,119 +1,35 @@
 <main class="mx-auto max-w-7xl flex-1 w-full">
-    <section class="grid gap-4 md:gap-8 p-4 md:p-6">
-      <div class="flex items-center gap-4">
-        <div class="grid gap-1">
-          <h1 class="font-semibold text-2xl">Start Collecting!</h1>
-          <p class="text-gray-500 dark:text-gray-400">
-            Build an army with these discounted sets
-          </p>
-        </div>
-      </div>
+  <section class="grid gap-4 md:gap-8 p-4 md:p-6">
+      <h1 class="font-semibold text-2xl">¡Colección inicial!</h1>
+      <p class="text-gray-500 dark:text-gray-400">
+      
+      </p>
       <div class="grid gap-4 md:gap-8">
-        <div
-          class="rounded-lg border bg-card text-card-foreground shadow-sm"
-          data-v0-t="card"
-        >
-          <div class="p-6 flex items-center gap-4">
-            <img
-              src="/placeholder.svg"
-              width="120"
-              height="120"
-              class="rounded-lg aspect-square object-cover border"
-              alt="Start Collecting! set"
-            />
-            <div class="grid gap-1">
-              <h2 class="font-semibold text-xl">Necrons</h2>
-              <p class="text-sm">
-                The perfect way to start a new army or add reinforcements to
-                an existing force.
-              </p>
-              <button
-                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
-                onclick="window.location.href='products/product'"
-                >
-                View set
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="rounded-lg border bg-card text-card-foreground shadow-sm"
-          data-v0-t="card"
-        >
-          <div class="p-6 flex items-center gap-4">
-            <img
-              src="/placeholder.svg"
-              width="120"
-              height="120"
-              class="rounded-lg aspect-square object-cover border"
-              alt="Start Collecting! set"
-            />
-            <div class="grid gap-1">
-              <h2 class="font-semibold text-xl">Space Marines</h2>
-              <p class="text-sm">
-                The perfect way to start a new army or add reinforcements to
-                an existing force.
-              </p>
-              <button
-                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
-              >
-                View set
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="rounded-lg border bg-card text-card-foreground shadow-sm"
-          data-v0-t="card"
-        >
-          <div class="p-6 flex items-center gap-4">
-            <img
-              src="/placeholder.svg"
-              width="120"
-              height="120"
-              class="rounded-lg aspect-square object-cover border"
-              alt="Start Collecting! set"
-            />
-            <div class="grid gap-1">
-              <h2 class="font-semibold text-xl">Astra Militarum</h2>
-              <p class="text-sm">
-                The perfect way to start a new army or add reinforcements to
-                an existing force.
-              </p>
-              <button
-                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
-              >
-                View set
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="rounded-lg border bg-card text-card-foreground shadow-sm"
-          data-v0-t="card"
-        >
-          <div class="p-6 flex items-center gap-4">
-            <img
-              src="/placeholder.svg"
-              width="120"
-              height="120"
-              class="rounded-lg aspect-square object-cover border"
-              alt="Start Collecting! set"
-            />
-            <div class="grid gap-1">
-              <h2 class="font-semibold text-xl">T'au Empire</h2>
-              <p class="text-sm">
-                The perfect way to start a new army or add reinforcements to
-                an existing force.
-              </p>
-              <button
-                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
-              >
-                View set
-              </button>
-            </div>
-          </div>
-        </div>
+          <% for (let i = 0; i < sets.length; i++) { %>
+              <div class="rounded-lg border bg-gray-100 text-gray-800 shadow-sm">
+                  <div class="p-6 flex items-center gap-4">
+                      <img
+                          src="https://via.placeholder.com/120"
+                          width="120"
+                          height="120"
+                          class="rounded-lg aspect-square object-cover border"
+                          alt="Set de inicio de colección"
+                      />
+                      <div class="grid gap-1">
+                          <h2 class="font-semibold text-xl"><%= sets[i].name %></h2>
+                          <p class="text-sm">
+                              La manera perfecta de comenzar un nuevo ejército o agregar refuerzos a una fuerza existente.
+                          </p>
+                          <button
+                              class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-green-500 text-white hover:bg-green-600 h-10 px-4 py-2"
+                              onclick="window.location.href='products/<%= sets[i].id %>'"
+                          >
+                              Ver set
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          <% } %>
       </div>
-    </section>
-  </main>
+  </section>
+</main>
