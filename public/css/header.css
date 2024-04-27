@@ -1,0 +1,11 @@
+/* Estilos para el dropdown */
+#dropdown {
+    display: none;
+  }
+  
+  /* Estilos para el botón de la burbuja */
+  #profile-button:hover + #dropdown,
+  #dropdown:hover {
+    display: block;
+  }
+  
