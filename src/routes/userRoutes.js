@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const productController = require('./productController');
 const forumController = require('./forumController')
+const loginController = require('./loginController');
+const registerController = require('./registerController');
 
 // GET para mostrar la página de inicio de sesión en la raíz de la aplicación
 router.get('/', (req, res) => {
@@ -50,6 +52,16 @@ router.get('/forum', (req, res) => {
     const categories = forumController.getForumCategories(); // Obtén las categorías del foro
     const topics = forumController.getLatestTopics(); // Obtén los últimos temas del foro
     res.render('forum/index', { categories, topics }); // Renderiza la vista y pasa las categorías y los temas como datos
+});
+
+// Ruta para mostrar la página de inicio de sesión
+router.get('/login', (req, res)=> {
+    res.render('login/index')
+});
+
+// Ruta para mostrar la página de registro
+router.get('/register', (req, res)=> {
+    res.render('register/index')
 });
 
 router.get('/forum/topic/:topicId', (req, res) => {
