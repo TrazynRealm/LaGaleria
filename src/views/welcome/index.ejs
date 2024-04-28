@@ -1,35 +1,42 @@
 <main class="mx-auto max-w-7xl flex-1 w-full">
-  <section class="grid gap-4 md:gap-8 p-4 md:p-6">
-      <h1 class="font-semibold text-2xl">¡Colección inicial!</h1>
-      <p class="text-gray-500 dark:text-gray-400">
-      
-      </p>
-      <div class="grid gap-4 md:gap-8">
-          <% for (let i = 0; i < sets.length; i++) { %>
-              <div class="rounded-lg border bg-gray-100 text-gray-800 shadow-sm">
-                  <div class="p-6 flex items-center gap-4">
-                      <img
-                          src="https://via.placeholder.com/120"
-                          width="120"
-                          height="120"
-                          class="rounded-lg aspect-square object-cover border"
-                          alt="Set de inicio de colección"
-                      />
-                      <div class="grid gap-1">
-                          <h2 class="font-semibold text-xl"><%= sets[i].name %></h2>
-                          <p class="text-sm">
-                              La manera perfecta de comenzar un nuevo ejército o agregar refuerzos a una fuerza existente.
-                          </p>
-                          <button
-                              class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-green-500 text-white hover:bg-green-600 h-10 px-4 py-2"
-                              onclick="window.location.href='products/<%= sets[i].id %>'"
-                          >
-                              Ver set
-                          </button>
-                      </div>
-                  </div>
-              </div>
-          <% } %>
-      </div>
-  </section>
+    <section class="grid gap-4 md:gap-8 p-4 md:p-6">
+        <div class="flex justify-center items-center">
+            <a href="#" class="rounded-full mx-4">
+              <img src="/img/necron.png" alt="Imagen 1" class="w-20 h-20 rounded-full" />
+            </a>
+            <a href="#" class="rounded-full mx-4">
+              <img src="/img/marine.png" alt="Imagen 2" class="w-20 h-20 rounded-full" />
+            </a>
+            <a href="#" class="rounded-full mx-4">
+              <img src="/img/militarum.png" alt="Imagen 3" class="w-20 h-20 rounded-full" />
+            </a>
+            <a href="#" class="rounded-full mx-4">
+              <img src="/img/tau.png" alt="Imagen 4" class="w-20 h-20 rounded-full" />
+            </a>
+          </div>
+        <div class="grid gap-4 md:gap-8">
+            <% for (let i=0; i < sets.length; i++) { %>
+                <div class="rounded-lg border bg-gray-100 text-gray-800 shadow-sm">
+                    <div class="p-6 flex items-center gap-4">
+                        <img src="https://via.placeholder.com/120" width="120" height="120"
+                            class="rounded-lg aspect-square object-cover border" alt="Set de inicio de colección" />
+                        <div class="grid gap-1">
+                            <h2 class="font-semibold text-xl">
+                                <%= sets[i].name %>
+                            </h2>
+                            <p class="text-sm">
+                                La manera perfecta de comenzar un nuevo ejército o agregar refuerzos a una fuerza
+                                existente.
+                            </p>
+                            <button
+                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-green-500 text-white hover:bg-green-600 h-10 px-4 py-2"
+                                onclick="window.location.href='products/<%= sets[i].id %>'">
+                                Ver set
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+        </div>
+    </section>
 </main>
