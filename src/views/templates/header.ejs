@@ -1,24 +1,46 @@
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/css/general-out.css" rel="stylesheet">
-  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-  <!-- <link rel="stylesheet" href="/css/styles.css"> -->
-  <title>Trazyn's Realm</title>
-</head>
 
-<header class="bg-gradient-to-b from-green-500 via-black via-33% to-green-500 text-white py-2">
-  <div class="container px-20 mx-auto flex justify-between items-center">
-      <h1 class="text-3xl font-extrabold tracking-tight">Trazyn's Realm</h1>
-      <nav class="flex space-x-6">
-          <a href="/" class="hover:text-gray-300">Inicio</a>
-          <a href="/forum" class="hover:text-gray-300">Foro</a>
-          <a href="/products" class="hover:text-gray-300">Productos</a>
-          <a href="#" class="hover:text-gray-300">Contacto</a>
-      </nav>
-      <div class="flex items-center space-x-4">
-          <a href="/login" class="hover:text-gray-300">Iniciar sesión</a>
-          <a href="/register" class="bg-transparent border-2 border-white text-white py-2 px-4 rounded-lg hover:bg-white hover:text-black hover:border-black">Registrarse</a>
-        </div>
+
+<header class="bg-gradient-to-b from-header-negro from-10% via-header-verde via-33% to-header-negro to-90% text-white py-4 justify-center">
+  <!-- CONTENEDOR HEADER -->
+  <div class="px-5 sm:px-10 mx-auto flex justify-between items-center">
+    <!-- BRAND -->
+    <div class="flex items-center ">
+      <a href="/" class="rounded-full mx-4">
+        <img src="/img/marine.png" alt="Imagen 4" class="w-10 h-10 rounded-full" />
+      </a>
+      <h3 class="hidden md:block text-2xl font-extrabold tracking-tight">Trazyn's Realm</h1>
+
+    </div>
+    <!-- NAVBAR -->
+    <nav class="flex space-x-6 hover:text-gray-300">
+      <!-- <a href="/" class="hover:text-gray-300">Inicio</a> -->
+      <a href="/" class="hover:text-gray-300">Inicio</a>
+      <a href="/forum" class="hover:text-gray-300">Foro</a>
+      <a href="/products" class="hover:text-gray-300">Productos</a>
+      <a href="#" class="hover:text-gray-300">Contacto</a>
+    </nav>
+    <!-- SESIÓN -->
+    <div class="lg:flex items-center space-x-4">
+      <!-- Si la pantalla es md o menor, muestra el dropdown -->
+      <div
+        class="lg:hidden relative bg-transparent border-2 border-white text-white rounded-lg hover:bg-transparent hover:text-yellow-500 hover:border-yellow-500 cursor-pointer">
+        <input type="checkbox" id="toggleDropdown" class="hidden">
+        <label for="toggleDropdown" class="">
+          <i class="fa-solid fa-bars py-2 px-4"></i>
+        </label>
+        <ul class="dropdown-menu hidden absolute right-0 mt-2 py-2 bg-white border rounded-lg shadow-md w-auto">
+          <li><a href="/login" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Login</a></li>
+          <li><a href="/register" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Registro</a></li>
+        </ul>
+      </div>
+      <!-- Si la pantalla es lg o mayor, muestra los enlaces de sesión -->
+      <div class="hidden lg:flex items-center space-x-4">
+        <a href="/login" class="rounded-full hover:border-header-registro hover:border-2 py-1 px-4 hover:bg-gradient-to-b from-header-negro from-10% via-header-verde via-33% to-header-negro to-90%">Iniciar sesión</a>
+        <a href="/register"
+          class="bg-transparent border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">Registrarse</a>
+      </div>
+    </div>
   </div>
+
+
 </header>
