@@ -8,10 +8,10 @@ const registerController = require('./registerController');
 // GET para mostrar la página de inicio de sesión en la raíz de la aplicación
 router.get('/', (req, res) => {
     const sets = [
-        { name: 'Necrons', id: 1 },
-        { name: 'Space Marines', id: 2 },
-        { name: 'Astra Militarum', id: 3 },
-        { name: "T'au Empire", id: 4 }
+        { name: 'Necrons', id: 1, image: '/img/necron.png' },
+        { name: 'Space Marines', id: 2, image: '/img/marine.png' },
+        { name: 'Astra Militarum', id: 3, image: '/img/militarum.png' },
+        { name: "T'au Empire", id: 4, image: '/img/tau.png' }
     ];
 
     res.render('index', { sets });

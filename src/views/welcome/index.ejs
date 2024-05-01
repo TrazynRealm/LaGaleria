@@ -2,37 +2,49 @@
     <section class="grid gap-4 md:gap-8 p-4 md:p-6">
         <div class="flex justify-center items-center">
             <a href="#" class="rounded-full mx-4">
-              <img src="/img/necron.png" alt="Imagen 1" class="w-20 h-20 rounded-full" />
+                <img src="/img/necron.png" alt="Imagen 1" class="w-20 h-20 rounded-full" />
             </a>
             <a href="#" class="rounded-full mx-4">
-              <img src="/img/marine.png" alt="Imagen 2" class="w-20 h-20 rounded-full" />
+                <img src="/img/marine.png" alt="Imagen 2" class="w-20 h-20 rounded-full" />
             </a>
             <a href="#" class="rounded-full mx-4">
-              <img src="/img/militarum.png" alt="Imagen 3" class="w-20 h-20 rounded-full" />
+                <img src="/img/militarum.png" alt="Imagen 3" class="w-20 h-20 rounded-full" />
             </a>
             <a href="#" class="rounded-full mx-4">
-              <img src="/img/tau.png" alt="Imagen 4" class="w-20 h-20 rounded-full" />
+                <img src="/img/tau.png" alt="Imagen 4" class="w-20 h-20 rounded-full" />
             </a>
-          </div>
-        <div class="grid gap-4 md:gap-8">
+        </div>
+        <div class="grid lg:grid-cols-2 gap-4 md:gap-8 justify-center">
             <% for (let i=0; i < sets.length; i++) { %>
-                <div class="rounded-lg border bg-gray-100 text-gray-800 shadow-sm">
-                    <div class="p-6 flex items-center gap-4">
-                        <img src="https://via.placeholder.com/120" width="120" height="120"
-                            class="rounded-lg aspect-square object-cover border" alt="Set de inicio de colección" />
-                        <div class="grid gap-1">
-                            <h2 class="font-semibold text-xl">
-                                <%= sets[i].name %>
-                            </h2>
-                            <p class="text-sm">
-                                La manera perfecta de comenzar un nuevo ejército o agregar refuerzos a una fuerza
-                                existente.
-                            </p>
-                            <button
-                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-green-500 text-white hover:bg-green-600 h-10 px-4 py-2"
-                                onclick="window.location.href='products/<%= sets[i].id %>'">
-                                Ver set
-                            </button>
+                <!-- CONTENEDOR -->
+                <div class="container rounded-lg border bg-header-registro2 text-white shadow-sm">
+                    <!-- CONTENIDO -->
+                    <div class="py-6 grid items-center gap-4">
+                        <!-- BLOQUE 1 -->
+                        <div class="flex lg:text-sm justify-evenly">
+                            <div class="">
+                                <img src="<%= sets[i].image %>" width="120" height="120"
+                                    class="rounded-lg aspect-square object-cover " alt="Set de inicio de colección" />
+                            </div>
+                            <div class="grid gap-1 px-4">
+                                <div class="font-semibold flex justify-center items-center text-3xl text-center">
+                                    <h2><%= sets[i].name %></h2>
+                                </div>
+                                <button
+                                    class=" bg-transparent border-2 border-white text-white px-10 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500"
+                                    onclick="window.location.href='products/<%= sets[i].id %>'">
+                                    Ver set
+                                </button>
+                            </div>
+                        </div>
+                        <!-- BLOQUE 2 -->
+                        <div class="">
+                            <div class="container ">
+                                <p class="text-sm px-4">
+                                    La manera perfecta de comenzar un nuevo ejército o agregar refuerzos a una fuerza
+                                    existente.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
