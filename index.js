@@ -4,6 +4,13 @@ const path = require('path');
 const mime = require('mime');
 const app = express();
 const PORT = process.env.PORT || 3000;
+require('dotenv').config();
+
+// Inicializar constantes .env
+const USER = process.env.USER;
+const PASSWORD = process.env.PASSWORD;
+const DBNAME = process.env.DBNAME;
+
 
 // Configurar Express para usar EJS como motor de plantillas
 app.set('view engine', 'ejs');
@@ -25,8 +32,18 @@ app.use(express.urlencoded({ extended: true }));
 // Montar las rutas de usuario
 app.use('/', userRoutes);
 
+
+// 404
+
+app
+.use((req, res) => {
+  res.status(404).render("404/index", {
+    titulo: "Error 404",
+    descripcion: "Page Not Found",
+  });
+})
+
 // Iniciar el servidor
 app.listen(PORT, () => {
     console.log(`Servidor Express escuchando en el puerto ${PORT}`);
 });
-
