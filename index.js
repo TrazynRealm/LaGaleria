@@ -4,6 +4,7 @@ const path = require('path');
 const mime = require('mime');
 const app = express();
 const PORT = process.env.PORT || 3000;
+require('dotenv').config();
 
 // Configurar Express para usar EJS como motor de plantillas
 app.set('view engine', 'ejs');
