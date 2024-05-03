@@ -26,15 +26,26 @@
                                 <img src="<%= sets[i].image %>" width="120" height="120"
                                     class="rounded-lg aspect-square object-cover " alt="Set de inicio de colección" />
                             </div>
-                            <div class="grid gap-1 px-4">
-                                <div class="font-semibold flex justify-center items-center text-3xl text-center">
-                                    <h2><%= sets[i].name %></h2>
+                            <div>
+                                <div class="grid gap-1 px-4">
+                                    <div class="font-semibold flex justify-center items-center text-3xl text-center">
+                                        <h2>
+                                            <%= sets[i].name %>
+                                        </h2>
+                                    </div>
                                 </div>
-                                <button
-                                    class=" bg-transparent border-2 border-white text-white px-10 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500"
+                                <div class="pt-5 flex justify-center">
+                                    <button
+                                        class=" bg-transparent border-2 border-white text-white px-10 py-3 mx-5 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500"
+                                        onclick="window.location.href='products/<%= sets[i].id %>'">
+                                        Ver set
+                                    </button>
+                                    <button
+                                    class=" bg-transparent border-2 border-white text-white px-10 py-3 mx-5 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500"
                                     onclick="window.location.href='products/<%= sets[i].id %>'">
-                                    Ver set
+                                    Ver topics
                                 </button>
+                                </div>
                             </div>
                         </div>
                         <!-- BLOQUE 2 -->

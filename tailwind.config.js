@@ -9,7 +9,7 @@ module.exports = {
           verde: '#21cb00',
           negro: '#020202',
           registro:'rgba(0,0,0,0.35)',
-          registro2:'rgba(23, 75, 108, 0.35)', // AZUL METÁLICO
+          registro2:'rgba(23, 75, 108, 0.7)', // AZUL METÁLICO
         },
         for: {
           pri: '#000000', // Negro

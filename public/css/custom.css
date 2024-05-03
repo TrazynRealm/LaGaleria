@@ -1,0 +1,5 @@
+.bg-img {
+    background-image: url("/img/bg-warhammer.jpeg");
+    background-attachment: fixed;
+    background-size:cover;
+}
