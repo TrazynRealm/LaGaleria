@@ -5,15 +5,15 @@ const forumController = require('../controllers/forumController');
 // Ruta para mostrar la página principal del foro
 router.get('/forum', (req, res) => {
     const categories = forumController.getForumCategories(); // Obtén las categorías del foro
-    const topics = forumController.getLatestTopics(); // Obtén los últimos temas del foro
-    res.render('forum/index', { categories, topics }); // Renderiza la vista y pasa las categorías y los temas como datos
+    const posts = forumController.getLatestPosts(); // Obtén los últimos temas del foro
+    res.render('forum/index', { categories, posts }); // Renderiza la vista y pasa las categorías y los temas como datos
 });
 
-router.get('/forum/topic/:topicId', (req, res) => {
-    const topicId = req.params.topicId;
-    const topic = forumController.getTopicById(topicId); // Corregir aquí
-    const responses = forumController.getTopicResponses(topicId);
-    res.render('forum/topic', { topic, responses }); // Renderizar la vista y pasar el tema como datos
+router.get('/forum/post/:postId', (req, res) => {
+    const postId = req.params.postId;
+    const post = forumController.getPostById(postId); // Corregir aquí
+    const comments = forumController.getComments(topicId);
+    res.render('forum/post', { post, comments }); // Renderizar la vista y pasar el tema como datos
 });
 
 module.exports = router;

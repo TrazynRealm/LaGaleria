@@ -22,10 +22,10 @@
       <div>
         <h3 class="text-xl font-semibold mb-2">Últimos temas</h3>
         <ul class="divide-y divide-gray-200">
-          <% topics.forEach(topic => { %>
+          <% posts.forEach(post => { %>
             <li class="py-4 bg-gray-500">
-              <a href="/forum/topic/<%= topic.id %>" class="text-xl font-semibold text-green-500 hover:underline"><%= topic.title %></a>
-              <p class="text-yellow-200 mt-1">Publicado por <%= topic.author %> el <%= topic.date %></p>
+              <a href="/forum/post/<%= post.id %>" class="text-xl font-semibold text-green-500 hover:underline"><%= post.title %></a>
+              <p class="text-yellow-200 mt-1">Publicado por <%= post.author %> el <%= post.date %></p>
             </li>
           <% }); %>
         </ul>

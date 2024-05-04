@@ -8,6 +8,4 @@ router.use(userRoutes);
 router.use(productRoutes);
 router.use(forumRoutes);
 
-
-
 module.exports = router;
