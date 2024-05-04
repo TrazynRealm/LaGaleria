@@ -29,12 +29,19 @@ mime.define({
 // Habilitar el análisis de cuerpos de solicitud en Express
 app.use(express.urlencoded({ extended: true }));
 
+// Conexón a base de datos
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Conexión exitosa a MongoDB Atlas');
+  })
+  .catch((error) => {
+    console.error('Error al conectar a MongoDB Atlas:', error);
+  });
+
 // Montar las rutas de usuario
 app.use('/', userRoutes);
 
-
 // 404
-
 app
 .use((req, res) => {
   res.status(404).render("404/index", {
