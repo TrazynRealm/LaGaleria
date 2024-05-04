@@ -1,5 +1,5 @@
 const express = require('express');
-const userRoutes = require('./src/routes/userRoutes');
+const mainRoutes = require('./src/routes/mainRoutes');
 const path = require('path');
 const mime = require('mime');
 const mongoose = require('mongoose');
@@ -35,7 +35,8 @@ mongoose.connect(uri)
   .catch(e => console.log(e))
 
 // Montar las rutas de usuario
-app.use('/', userRoutes);
+app.use('/', mainRoutes);
+
 
 // 404
 app
