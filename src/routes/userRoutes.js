@@ -22,9 +22,14 @@ router.get('/home', (req, res) => {
     res.render('home');
 });
 
-router.get('/products', (req, res) => {
-    const products = productController.getProductList(); // Cambiar getProductList a través de productController
-    res.render('products/index', { products });
+router.get('/products', async (req, res) => {
+    try {
+        const products = await productController.getProductList(); 
+        res.render('products/index', { products });
+    } catch (error) {
+        console.error('Error al obtener la lista de productos:', error);
+        res.status(500).send('Error interno del servidor');
+    }
 });
 
 

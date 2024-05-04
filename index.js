@@ -30,7 +30,7 @@ mime.define({
 app.use(express.urlencoded({ extended: true }));
 
 // Conexón a base de datos
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(uri)
   .then(() => console.log('Conexión exitosa a TrazynDB'))
   .catch(e => console.log(e))
 

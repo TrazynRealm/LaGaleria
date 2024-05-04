@@ -613,6 +613,9 @@ video {
 .h-20 {
   height: 5rem;
 }
+.h-40 {
+  height: 10rem;
+}
 .w-10 {
   width: 2.5rem;
 }
@@ -860,6 +863,10 @@ video {
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+}
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 .ps-1 {
   padding-inline-start: 0.25rem;
