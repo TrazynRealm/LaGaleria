@@ -18,7 +18,6 @@ exports.getPostWithComments = async (req, res) => {
         const postId = req.params.postId;
         const post = await Post.findById(postId).populate('author');
         const comments = await Comment.find({ post: postId }).populate('author');
-        console.log('Comentarios obtenidos:', comments);
         res.render('forum/post', { post, comments });
     } catch (err) {
         console.error(err);
