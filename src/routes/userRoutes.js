@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
         { name: "T'au Empire", id: 4, image: '/img/tau.png' }
     ];
 
-    res.render('index', { sets });
+    res.render('index', { sets, loggedIn: req.isAuthenticated() });
 });
 
 // GET para mostrar la página de inicio con sets
