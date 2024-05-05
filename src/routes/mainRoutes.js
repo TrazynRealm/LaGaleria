@@ -4,7 +4,7 @@ const productRoutes = require('./productRoutes');
 const forumRoutes = require('./forumRoutes');
 const userRoutes = require('./userRoutes')
 
-router.use(userRoutes);
+router.use('/',userRoutes);
 router.use(productRoutes);
 router.use(forumRoutes);
 

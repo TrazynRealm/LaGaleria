@@ -36,3 +36,52 @@ exports.registerUser = async (req, res) => {
         res.status(500).send('Error al registrar el usuario');
     }
 };
+
+exports.getLoginPage = (req, res) => {
+    res.render('login');
+};
+
+exports.loginUser = async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        // Busca al usuario por su email en la base de datos
+        const user = await User.findOne({ email });
+        console.log("Intento de inicio de sesión para el usuario:", email);
+        // Si no se encuentra al usuario, redirecciona al usuario de vuelta a la página de inicio de sesión
+        if (!user) {
+            return res.redirect('/login');
+        }
+
+        // Compara la contraseña ingresada con la contraseña almacenada en la base de datos
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        // Si las contraseñas no coinciden, redirecciona al usuario de vuelta a la página de inicio de sesión
+        if (!passwordMatch) {
+            return res.redirect('/login');
+        }
+
+        // Si las contraseñas coinciden, establece la sesión y redirecciona al usuario a la página principal
+        req.session.user = user;
+
+        // Establecer el estado de autenticación en la sesión
+        req.session.loggedIn = true;
+
+        res.redirect('/');
+    } catch (error) {
+        console.error("Error durante el inicio de sesión:", error);
+        res.status(500).send('Error interno del servidor');
+    }
+};
+
+exports.logoutUser = (req, res) => {
+    // Destruye la sesión del usuario y redirecciona al usuario a la página de inicio
+    req.session.destroy((err) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error interno del servidor');
+        } else {
+            res.redirect('/');
+        }
+    });
+};
