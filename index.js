@@ -41,7 +41,6 @@ app.use(passport.session());
 // Middleware para definir loggedIn globalmente
 app.use((req, res, next) => {
   res.locals.loggedIn = req.session.loggedIn || false;
-  console.log("loggedIn:", res.locals.loggedIn);
   next();
 });
 
