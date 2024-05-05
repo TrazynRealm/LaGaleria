@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Cart = require('../models/cart');
 const bcrypt = require('bcrypt');
 
 exports.getRegisterPage = (req, res) => {
@@ -29,6 +30,20 @@ exports.registerUser = async (req, res) => {
 
         // Guardar el nuevo usuario en la base de datos
         await newUser.save();
+
+        // Crear un carrito para el usuario
+        const newCart = new Cart({
+            user: newUser._id, // Asocia el carrito con el nuevo usuario
+            items: [] // Puedes inicializar el carrito con un array vacío de elementos
+        });
+
+        // Guardar el carrito en la base de datos
+        await newCart.save();
+
+        // Asocia el carrito al usuario
+        newUser.cart = newCart._id;
+        await newUser.save();
+
 
         // Iniciar sesión automáticamente después del registro
         req.session.user = newUser;

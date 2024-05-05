@@ -4,7 +4,6 @@
     background-attachment: fixed;
     background-size:cover;
     position: relative; /* Agregamos posición relativa para poder posicionar el pseudo-elemento */
-
 }
 
 .bg-img::before {
