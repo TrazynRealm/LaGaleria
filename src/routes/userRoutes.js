@@ -27,12 +27,12 @@ router.get('/welcome', (req, res) => {
     res.render('welcome/index', { sets });
 });
 
-// Ruta para mostrar la página de inicio de sesión
-router.get('/login', (req, res)=> {
-    res.render('login/index')
-});
+// Rutas login
+router.get('/login', authController.getLoginPage);
+router.post('/login', authController.loginUser);
+router.get('/logout', authController.logoutUser);
 
-// Ruta para mostrar la página de registro
+// Rutas register
 router.get('/register', authController.getRegisterPage);
 router.post('/register', authController.registerUser);
 
