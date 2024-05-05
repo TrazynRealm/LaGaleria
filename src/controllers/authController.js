@@ -5,6 +5,7 @@ exports.getRegisterPage = (req, res) => {
     res.render('register');
 };
 
+
 exports.registerUser = async (req, res) => {
     try {
         // Extraer datos del cuerpo del formulario
@@ -29,16 +30,22 @@ exports.registerUser = async (req, res) => {
         // Guardar el nuevo usuario en la base de datos
         await newUser.save();
 
-        // Redireccionar al usuario a la página de inicio de sesión u otra página
-        res.redirect('/login');
+        // Iniciar sesión automáticamente después del registro
+        req.session.user = newUser;
+        req.session.loggedIn = true;
+
+        // Redireccionar al usuario a la página de inicio
+        res.redirect('/');
     } catch (err) {
         console.error(err);
         res.status(500).send('Error al registrar el usuario');
     }
 };
 
+
 exports.getLoginPage = (req, res) => {
-    res.render('login');
+    // Pasa el estado de autenticación a la plantilla
+    res.render('login', { loggedIn: req.session.loggedIn });
 };
 
 exports.loginUser = async (req, res) => {
