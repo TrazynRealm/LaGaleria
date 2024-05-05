@@ -12,8 +12,9 @@ router.get('/', (req, res) => {
         { name: "T'au Empire", id: 4, image: '/img/tau.png' }
     ];
 
-    res.render('index', { sets, loggedIn: req.isAuthenticated() });
+    res.render('index', { sets });
 });
+
 
 // GET para mostrar la página de inicio con sets
 router.get('/welcome', (req, res) => {

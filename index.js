@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Configurar la sesión de Express
 app.use(session({
-  secret: 'secret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }));
@@ -45,10 +45,10 @@ app.use(passport.session());
 
 // Middleware para definir loggedIn globalmente
 app.use((req, res, next) => {
-  res.locals.loggedIn = req.isAuthenticated(); // Define loggedIn basado en el estado de autenticación
+  res.locals.loggedIn = req.isAuthenticated();
   console.log("loggedIn:", res.locals.loggedIn);
   next();
-});
+ }); 
 
 // Conexión a base de datos
 mongoose.connect(uri)
