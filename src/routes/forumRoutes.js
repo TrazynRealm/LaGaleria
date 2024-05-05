@@ -18,11 +18,11 @@ router.get('/forum/post/:postId', forumController.getPostWithComments);
 router.get('/forum/new-post', forumController.getCreatePostPage);
 router.post('/forum/new-post', forumController.createPost);
 
-router.get('/welcome', (req, res) => {
+// Ruta para agregar un comentario a un post existente
+router.post('/forum/post/:postId/add-comment', isAuthenticated, forumController.addComment);
 
+router.get('/welcome', (req, res) => {
     res.render('welcome/index', { sets, loggedIn: req.isAuthenticated() });
 });
 
-
 module.exports = router;
-

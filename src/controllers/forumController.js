@@ -45,3 +45,20 @@ exports.createPost = async (req, res) => {
         res.status(500).send('Error al crear el post');
     }
 };
+
+exports.addComment = async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const { content } = req.body;
+        const newComment = new Comment({
+            content,
+            author: req.user._id,
+            post: postId
+        });
+        await newComment.save();
+        res.redirect(`/forum/post/${postId}`);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al agregar el comentario');
+    }
+};
