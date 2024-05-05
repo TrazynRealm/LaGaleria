@@ -31,6 +31,7 @@ exports.getCreatePostPage = (req, res) => {
 
 exports.createPost = async (req, res) => {
     try {
+        console.log("ID del usuario:", req.user._id); // Agregar este console.log
         const { title, content } = req.body;
         const newPost = new Post({
             title,
