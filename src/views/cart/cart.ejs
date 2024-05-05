@@ -1,39 +1,102 @@
 <main>
     <section>
-        <div class="container">
-            <h1>Carrito de Compras</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Precio</th>
-                        <th>Cantidad</th>
-                        <th>Subtotal</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Aquí se mostrarán los productos del carrito -->
-                    <tr>
-                        <td>Producto 1</td>
-                        <td>$10.00</td>
-                        <td>2</td>
-                        <td>$20.00</td>
-                        <td class="action-buttons">
-                            <button>Editar</button>
-                            <button>Eliminar</button>
-                        </td>
-                    </tr>
-                    <!-- Puedes repetir esta estructura para cada producto en el carrito -->
-                </tbody>
-            </table>
-            <div class="total">
-                Total: $50.00 <!-- Aquí se mostrará el total del carrito -->
+        <div className="container mx-auto px-4 py-8 md:py-12">
+            <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8">
+              <div className="border rounded-lg p-6 bg-white dark:bg-gray-900 dark:border-gray-800">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-2xl font-bold">Your Cart</h2>
+                  <button className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50">
+                    <TrashIcon className="w-5 h-5" />
+                    <span className="sr-only">Clear cart</span>
+                  </button>
+                </div>
+                <div className="space-y-6">
+                  <div className="grid grid-cols-[80px_1fr_auto] items-center gap-4">
+                    <div>
+                      <img
+                        alt="Product Image"
+                        className="rounded-md object-cover"
+                        height={80}
+                        src="/placeholder.svg"
+                        width={80}
+                      />
+                    </div>
+                    <div>
+                      <h3 className="font-medium">Acme Circles T-Shirt</h3>
+                      <p className="text-gray-500 dark:text-gray-400">60% combed ringspun cotton/40% polyester jersey tee.</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Select className="w-20" defaultValue="1">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Qty" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1">1</SelectItem>
+                          <SelectItem value="2">2</SelectItem>
+                          <SelectItem value="3">3</SelectItem>
+                          <SelectItem value="4">4</SelectItem>
+                          <SelectItem value="5">5</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <div className="font-medium">$99.00</div>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-[80px_1fr_auto] items-center gap-4">
+                    <div>
+                      <img
+                        alt="Product Image"
+                        className="rounded-md object-cover"
+                        height={80}
+                        src="/placeholder.svg"
+                        width={80}
+                      />
+                    </div>
+                    <div>
+                      <h3 className="font-medium">Aqua Filters</h3>
+                      <p className="text-gray-500 dark:text-gray-400">High-quality water filters for your home.</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Select className="w-20" defaultValue="1">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Qty" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1">1</SelectItem>
+                          <SelectItem value="2">2</SelectItem>
+                          <SelectItem value="3">3</SelectItem>
+                          <SelectItem value="4">4</SelectItem>
+                          <SelectItem value="5">5</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <div className="font-medium">$49.00</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="border rounded-lg p-6 bg-white dark:bg-gray-900 dark:border-gray-800">
+                <h2 className="text-2xl font-bold mb-6">Order Summary</h2>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span>Subtotal</span>
+                    <span className="font-medium">$148.00</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Shipping</span>
+                    <span className="font-medium">$10.00</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Tax</span>
+                    <span className="font-medium">$12.00</span>
+                  </div>
+                  <Separator />
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-bold">Total</span>
+                    <span className="text-lg font-bold">$170.00</span>
+                  </div>
+                </div>
+                <Button className="w-full mt-6">Proceed to Checkout</Button>
+              </div>
             </div>
-            <div class="action-buttons">
-                <button>Continuar Comprando</button>
-                <button>Proceder al Pago</button>
-            </div>
-        </div>
+          </div>
     </section>
 </main>

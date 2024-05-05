@@ -89,14 +89,26 @@ exports.updateCartItemQuantity = async (req, res) => {
 
 exports.getCart = async (req, res) => {
     try {
+        // Verificar si el usuario está autenticado
+        if (!req.session.user) {
+            return res.status(401).send('Usuario no autenticado');
+        }
+
         const userId = req.session.user._id;
 
         // Busca el carrito del usuario
         const cart = await Cart.findOne({ user: userId }).populate('products.product');
 
-        res.json(cart);
+        if (!cart || cart.products.length === 0) {
+            // Renderiza la vista 'cartEmpty' si el carrito está vacío
+            return res.render('cartEmpty');
+        }
+
+        // Renderiza la vista 'cart' con el carrito como contexto
+        res.render('cart', { cart });
     } catch (err) {
         console.error(err);
         res.status(500).send('Error al obtener el carrito del usuario');
     }
 };
+
