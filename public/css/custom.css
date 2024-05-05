@@ -12,7 +12,7 @@
     position: absolute;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5); /* Ajusta el valor alfa según la intensidad de oscurecimiento que desees */
+    background-color: rgba(25, 20, 0, 0.5); /* Ajusta el valor alfa según la intensidad de oscurecimiento que desees */
     z-index: -10; /* Aseguramos que la capa esté por encima de la imagen de fondo */
 }
 
