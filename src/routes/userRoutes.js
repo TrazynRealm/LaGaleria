@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const authController = require('../controllers/authController'); 
+
 
 // GET para mostrar la página de inicio de sesión en la raíz de la aplicación
 router.get('/', (req, res) => {
@@ -31,9 +33,7 @@ router.get('/login', (req, res)=> {
 });
 
 // Ruta para mostrar la página de registro
-router.get('/register', (req, res)=> {
-    res.render('register/index')
-});
-
+router.get('/register', authController.getRegisterPage);
+router.post('/register', authController.registerUser);
 
 module.exports = router;
