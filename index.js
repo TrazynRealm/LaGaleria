@@ -45,10 +45,18 @@ app.use(passport.session());
 
 // Middleware para definir loggedIn globalmente
 app.use((req, res, next) => {
-  res.locals.loggedIn = req.isAuthenticated(); // Define loggedIn basado en el estado de autenticación
+  // Verifica si el usuario está autenticado
+  if (req.session.loggedIn) {
+    // Si está autenticado, establece loggedIn en true
+    res.locals.loggedIn = true;
+  } else {
+    // Si no está autenticado, establece loggedIn en false
+    res.locals.loggedIn = false;
+  }
   console.log("loggedIn:", res.locals.loggedIn);
   next();
 });
+
 
 // Conexión a base de datos
 mongoose.connect(uri)

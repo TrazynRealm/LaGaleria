@@ -1,3 +1,4 @@
+'use strict'
 /* DROPDOWN SESIÓN */
 $(document).ready(function () {
   $('#toggleDropdown').change(function () {

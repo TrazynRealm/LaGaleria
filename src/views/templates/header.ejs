@@ -1,8 +1,8 @@
 <header class="bg-gradient-to-b from-header-negro from-10% via-header-verde via-33% to-header-negro to-90% text-white py-4 justify-center">
   <!-- CONTENEDOR HEADER -->
-  <div class="px-5 sm:px-10 mx-auto flex justify-between items-center">
+  <div class="px-5 sm:px-10 grid grid-flow-col justify-between items-center">
     <!-- BRAND -->
-    <div class="flex items-center ">
+    <div class="flex items-center">
       <a href="/" class="rounded-full mx-4">
         <img src="/img/marine.png" alt="Imagen 4" class="w-10 h-10 rounded-full" />
       </a>
@@ -16,28 +16,32 @@
       <a href="/products" class="hover:text-gray-300">Productos</a>
       <a href="#" class="hover:text-gray-300">Contacto</a>
     </nav>
+
     <!-- SESIÓN -->
     <div class="lg:flex items-center space-x-4">
+      <!-- Navbar para usuarios autenticados -->
       <% if (loggedIn) { %>
-        <!-- Navbar para usuarios autenticados -->
-        <div class="dropdown relative bg-transparent border-2 border-white text-white rounded-lg hover:bg-transparent hover:text-yellow-500 hover:border-yellow-500 cursor-pointer">
-          <input type="checkbox" id="toggleDropdown" class="hidden">
-          <label for="toggleDropdown">
-            <i class="fa-solid fa-bars py-2 px-4"></i>
-          </label>
-          <ul class="dropdown-menu hidden absolute right-0 mt-2 py-2 bg-white border rounded-lg shadow-md w-auto">
-            <li><a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Perfil</a></li>
-            <li><a href="/cart" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Carrito</a></li>
-            <li><a href="/logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</a></li>
-          </ul>
-        </div>
+          <div class="dropdown relative bg-transparent border-2 border-white text-white rounded-lg hover:bg-transparent hover:text-yellow-500 hover:border-yellow-500 cursor-pointer">
+              <input type="checkbox" id="toggleDropdown" class="hidden">
+              <label for="toggleDropdown">
+                  <i class="fa-solid fa-bars py-2 px-4"></i>
+              </label>
+              <ul class="dropdown-menu hidden absolute right-0 mt-2 py-2 bg-white border rounded-lg shadow-md w-auto">
+                  <li><a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Perfil</a></li>
+                  <li><a href="/cart" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Carrito</a></li>
+                  <li><a href="/logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</a></li>
+              </ul>
+          </div>
       <% } else { %>
-        <!-- Navbar para usuarios no autenticados -->
-        <div class="hidden lg:flex items-center space-x-4">
-          <a href="/login" class="rounded-full hover:border-header-registro  py-1 px-4 hover:bg-gradient-to-b from-header-negro from-10% via-header-verde via-33% to-header-negro to-90%">Iniciar sesión</a>
-          <a href="/register" class="bg-transparent border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">Registrarse</a>
-        </div>
+          <!-- Navbar para usuarios no autenticados -->
+          <div class="hidden lg:flex items-center space-x-4">
+              <a href="/login" class="rounded-full hover:border-header-registro  py-1 px-4 hover:bg-gradient-to-b from-header-negro from-10% via-header-verde via-33% to-header-negro to-90%">Iniciar sesión</a>
+              <a href="/register" class="bg-transparent border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">Registrarse</a>
+          </div>
       <% } %>
+  </div>
+  
     </div>
   </div>
+
 </header>
