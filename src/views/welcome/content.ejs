@@ -1,23 +1,13 @@
 <main class="mx-auto max-w-7xl flex-1 w-full">
     <section class="grid gap-4 md:gap-8 p-4 md:p-6">
-        <div class="flex justify-center items-center">
-            <a href="#" class="rounded-full mx-4">
-                <img src="/img/necron.png" alt="Imagen 1" class="w-20 h-20 rounded-full" />
-            </a>
-            <a href="#" class="rounded-full mx-4">
-                <img src="/img/marine.png" alt="Imagen 2" class="w-20 h-20 rounded-full" />
-            </a>
-            <a href="#" class="rounded-full mx-4">
-                <img src="/img/militarum.png" alt="Imagen 3" class="w-20 h-20 rounded-full" />
-            </a>
-            <a href="#" class="rounded-full mx-4">
-                <img src="/img/tau.png" alt="Imagen 4" class="w-20 h-20 rounded-full" />
-            </a>
-        </div>
+        <!-- TÍTULO -->
+        <h1 class="italic flex justify-center text-4xl font-bold bg-header-registro2 mx-auto rounded-lg px-4 text-white shadow-lg">Bienvenido a la galería de Trazyn</h1>
+        <!-- TARJETAS -->
         <div class="grid lg:grid-cols-2 gap-4 md:gap-8 justify-center">
             <% for (let i=0; i < sets.length; i++) { %>
                 <!-- CONTENEDOR -->
-                <div class="container rounded-lg border bg-header-registro2 text-white shadow-sm">
+                <div class="container rounded-lg border bg-header-registro2 text-white shadow-sm set-card"
+                    id="set-card-<%= i %>">
                     <!-- CONTENIDO -->
                     <div class="py-6 grid items-center gap-4">
                         <!-- BLOQUE 1 -->
@@ -41,10 +31,10 @@
                                         Ver set
                                     </button>
                                     <button
-                                    class=" bg-transparent border-2 border-white text-white px-10 py-3 mx-5 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500"
-                                    onclick="window.location.href='products/<%= sets[i].id %>'">
-                                    Ver topics
-                                </button>
+                                        class=" bg-transparent border-2 border-white text-white px-10 py-3 mx-5 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500"
+                                        onclick="window.location.href='products/<%= sets[i].id %>'">
+                                        Ver topics
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -60,6 +50,27 @@
                     </div>
                 </div>
                 <% } %>
+        </div>
+        <div class="bg-header-registro2 mx-auto px-4 py-2 rounded-full">
+            <!-- ICONOS REDONDOS -->
+            <div class="flex justify-center items-center icons-container">
+                <a href="#" class="rounded-full mx-4 icon-link">
+                    <img src="/img/necron.png" alt="Imagen 1" class="w-20 h-20 rounded-full icon-image"
+                        data-target="set-card-0" />
+                </a>
+                <a href="#" class="rounded-full mx-4 icon-link">
+                    <img src="/img/marine.png" alt="Imagen 2" class="w-20 h-20 rounded-full icon-image"
+                        data-target="set-card-1" />
+                </a>
+                <a href="#" class="rounded-full mx-4 icon-link">
+                    <img src="/img/militarum.png" alt="Imagen 3" class="w-20 h-20 rounded-full icon-image"
+                        data-target="set-card-2" />
+                </a>
+                <a href="#" class="rounded-full mx-4 icon-link">
+                    <img src="/img/tau.png" alt="Imagen 4" class="w-20 h-20 rounded-full icon-image"
+                        data-target="set-card-3" />
+                </a>
+            </div>
         </div>
     </section>
 </main>

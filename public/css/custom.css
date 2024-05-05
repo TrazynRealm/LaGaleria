@@ -1,5 +1,33 @@
+/* FONDO APP */
 .bg-img {
     background-image: url("/img/bg-warhammer.jpeg");
     background-attachment: fixed;
     background-size:cover;
+    position: relative; /* Agregamos posición relativa para poder posicionar el pseudo-elemento */
+
+}
+
+.bg-img::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Ajusta el valor alfa según la intensidad de oscurecimiento que desees */
+    z-index: -10; /* Aseguramos que la capa esté por encima de la imagen de fondo */
+}
+
+/* BOTONES-TARJETAS INICIO */
+/* Estilos para el efecto de oscurecimiento */
+.set-card {
+    transition: filter 0.3s ease;
+}
+.icon-image {
+    transition: filter 0.3s ease;
+}
+.icon-image:hover {
+    border: 5px solid green;
+
+}
+.set-card:hover {
+    border: 2px solid green;
 }
