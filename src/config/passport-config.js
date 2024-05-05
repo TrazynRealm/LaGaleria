@@ -1,6 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('../models/user'); // Asegúrate de importar tu modelo de usuario
+const User = require('../models/user');
+const bcrypt = require('bcrypt'); // Agrega la importación de bcrypt
 
 passport.use(new LocalStrategy(
   async (username, password, done) => {
@@ -23,7 +24,6 @@ passport.use(new LocalStrategy(
     }
   }
 ));
-
 
 passport.serializeUser((user, done) => {
   done(null, user.id);

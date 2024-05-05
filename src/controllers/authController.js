@@ -54,7 +54,6 @@ exports.loginUser = async (req, res) => {
     try {
         // Busca al usuario por su email en la base de datos
         const user = await User.findOne({ email });
-        console.log("Intento de inicio de sesión para el usuario:", email);
         // Si no se encuentra al usuario, redirecciona al usuario de vuelta a la página de inicio de sesión
         if (!user) {
             return res.redirect('/login');
@@ -67,19 +66,23 @@ exports.loginUser = async (req, res) => {
         if (!passwordMatch) {
             return res.redirect('/login');
         }
-
         // Si las contraseñas coinciden, establece la sesión y redirecciona al usuario a la página principal
         req.session.user = user;
-
         // Establecer el estado de autenticación en la sesión
         req.session.loggedIn = true;
 
-        res.redirect('/');
+        // Redirige al usuario a la página a la que intentaba acceder antes de iniciar sesión (si existe)
+        // De lo contrario, redirige al usuario a la página de inicio
+        const redirectTo = req.session.redirectTo || '/';
+        delete req.session.redirectTo; // Elimina el registro de la página a la que intentaba acceder
+
+        res.redirect(redirectTo);
     } catch (error) {
         console.error("Error durante el inicio de sesión:", error);
         res.status(500).send('Error interno del servidor');
     }
 };
+
 
 exports.logoutUser = (req, res) => {
     // Destruye la sesión del usuario y redirecciona al usuario a la página de inicio
