@@ -1,7 +1,8 @@
 const express = require('express');
-const userRoutes = require('./src/routes/userRoutes');
+const mainRoutes = require('./src/routes/mainRoutes');
 const path = require('path');
 const mime = require('mime');
+const mongoose = require('mongoose');
 const app = express();
 const PORT = process.env.PORT || 3000;
 require('dotenv').config();
@@ -10,8 +11,7 @@ require('dotenv').config();
 const USER = process.env.USER;
 const PASSWORD = process.env.PASSWORD;
 const DBNAME = process.env.DBNAME;
-
-
+const uri = `mongodb+srv://${USER}:${PASSWORD}@trazyndb.xy78c3j.mongodb.net/${DBNAME}?retryWrites=true&w=majority`;
 // Configurar Express para usar EJS como motor de plantillas
 app.set('view engine', 'ejs');
 
@@ -29,12 +29,16 @@ mime.define({
 // Habilitar el análisis de cuerpos de solicitud en Express
 app.use(express.urlencoded({ extended: true }));
 
+// Conexón a base de datos
+mongoose.connect(uri)
+  .then(() => console.log('Conexión exitosa a TrazynDB'))
+  .catch(e => console.log(e))
+
 // Montar las rutas de usuario
-app.use('/', userRoutes);
+app.use('/', mainRoutes);
 
 
 // 404
-
 app
 .use((req, res) => {
   res.status(404).render("404/index", {

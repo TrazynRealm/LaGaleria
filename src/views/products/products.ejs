@@ -1,16 +1,21 @@
 <div class="container mx-auto py-6">
-  <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl font-semibold mb-4">Productos</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <% products.forEach(product => { %>
-              <div class="bg-white p-6 rounded-lg shadow-md">
-                  <!-- Placeholder online para la imagen -->
-                  <img src="https://via.placeholder.com/300x200" alt="<%= product.name %>" class="rounded-lg mb-4">
-                  <h3 class="text-xl font-semibold"><%= product.name %></h3>
-                  <p class="text-gray-600">$<%= product.price %></p>
-                  <a href="/products/<%= product.id %>" class="block mt-4 text-blue-500 hover:underline">Ver detalle</a>
-              </div>
-          <% }); %>
-      </div>
+    <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-semibold mb-4">Productos</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <% if (products && products.length) { %>
+                <% products.forEach(product => { %>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <!-- Placeholder online para la imagen -->
+                        <img src="https://via.placeholder.com/300x200" alt="<%= product.name %>" class="rounded-lg mb-4">
+                        <h3 class="text-xl font-semibold"><%= product.name %></h3>
+                        <p class="text-gray-600">$<%= product.price %></p>
+                        <a href="/products/<%= product._id %>" class="block mt-4 text-blue-500 hover:underline">Ver detalle</a>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p class="bg-white">No hay productos disponibles.</p>
+            <% } %>
+        </div>
+    </div>
   </div>
-</div>
+  
