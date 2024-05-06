@@ -10,31 +10,25 @@ const PORT = process.env.PORT || 3000;
 require('dotenv').config();
 
 // Inicializar constantes .env
-const USER = process.env.USER;
-const PASSWORD = process.env.PASSWORD;
-const DBNAME = process.env.DBNAME;
+const { USER, PASSWORD, DBNAME, SESSION_SECRET } = process.env;
 const uri = `mongodb+srv://${USER}:${PASSWORD}@trazyndb.xy78c3j.mongodb.net/${DBNAME}?retryWrites=true&w=majority`;
 
 // Configurar Express para usar EJS como motor de plantillas
 app.set('view engine', 'ejs');
-
-// Configurar el directorio de vistas
 app.set('views', path.join(__dirname, 'src', 'views'));
 
 // Configurar Express para servir archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Configurar el tipo MIME para un tipo específico de archivo
-mime.define({
-    'text/css': ['css']
-});
+mime.define({ 'text/css': ['css'] });
 
 // Habilitar el análisis de cuerpos de solicitud en Express
 app.use(express.urlencoded({ extended: true }));
 
 // Configurar la sesión de Express
 app.use(session({
-  secret: 'secret',
+  secret: SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }));
@@ -43,30 +37,22 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 // Middleware para definir loggedIn globalmente
 app.use((req, res, next) => {
-  // Verifica si el usuario está autenticado
-  if (req.session.loggedIn) {
-    // Si está autenticado, establece loggedIn en true
-    res.locals.loggedIn = true;
-  } else {
-    // Si no está autenticado, establece loggedIn en false
-    res.locals.loggedIn = false;
-  }
-  console.log("loggedIn:", res.locals.loggedIn);
+  res.locals.loggedIn = req.session.loggedIn || false;
   next();
 });
-
 
 // Conexión a base de datos
 mongoose.connect(uri)
   .then(() => console.log('Conexión exitosa a TrazynDB'))
-  .catch(e => console.log(e));
+  .catch(e => console.error('Error en la conexión a la base de datos:', e));
 
 // Montar las rutas de usuario
 app.use('/', mainRoutes);
 
-// 404
+// Manejar errores 404
 app.use((req, res) => {
   res.status(404).render("404/index", {
     titulo: "Error 404",

@@ -10,6 +10,13 @@
         <p class="text-gray-600">Por <%= post.author.username %>, <%= post.createdAt %></p>
     </div>
 
+    <!-- Botón para abrir el modal de respuesta -->
+    <% if (loggedIn) { %>
+        <button id="replyModalButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#replyModal">
+            Responder
+        </button>
+    <% } %>
+
     <!-- Comentarios -->
     <div>
         <h2 class="text-xl font-semibold mb-2">Comentarios</h2>
@@ -26,4 +33,37 @@
     </div>
 </div>
 
+<!-- Modal para agregar un comentario -->
+<div class="modal fade" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="replyModalLabel">Responder al Post</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/forum/post/<%= post._id %>/add-comment" method="POST">
+                    <div class="form-group">
+                        <label for="commentContent">Contenido del Comentario</label>
+                        <textarea class="form-control" id="commentContent" name="content" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary bg-header-verde">Enviar Comentario</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Aquí va el HTML del pie de página, como los enlaces de redes sociales, información de contacto, etc. -->
+<script>
+    // Espera a que el documento esté completamente cargado
+    document.addEventListener("DOMContentLoaded", function() {
+        // Agrega un evento click al botón de respuesta
+        document.querySelector("#replyModalButton").addEventListener("click", function() {
+            // Muestra el modal de respuesta
+            $('#replyModal').modal('show');
+        });
+    });
+</script>

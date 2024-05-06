@@ -24,3 +24,41 @@ exports.getPostWithComments = async (req, res) => {
         res.status(500).send('Error al obtener el post y sus comentarios');
     }
 };
+
+exports.getCreatePostPage = (req, res) => {
+    res.render('forum/new-post');
+};
+
+exports.createPost = async (req, res) => {
+    try {
+        console.log("ID del usuario:", req.user._id); // Agregar este console.log
+        const { title, content } = req.body;
+        const newPost = new Post({
+            title,
+            content,
+            author: req.user._id 
+        });
+        await newPost.save();
+        res.redirect('/forum');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al crear el post');
+    }
+};
+
+exports.addComment = async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const { content } = req.body;
+        const newComment = new Comment({
+            content,
+            author: req.user._id,
+            post: postId
+        });
+        await newComment.save();
+        res.redirect(`/forum/post/${postId}`);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al agregar el comentario');
+    }
+};

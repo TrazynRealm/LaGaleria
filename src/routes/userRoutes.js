@@ -15,6 +15,7 @@ router.get('/', (req, res) => {
     res.render('index', { sets, loggedIn: req.session.loggedIn });
 });
 
+
 // GET para mostrar la página de inicio con sets
 router.get('/welcome', (req, res) => {
     const sets = [
