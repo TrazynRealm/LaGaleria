@@ -86,6 +86,9 @@ exports.loginUser = async (req, res) => {
         // Establecer el estado de autenticación en la sesión
         req.session.loggedIn = true;
 
+        // Console.log para comprobar la sesión
+        console.log("Sesión después de iniciar sesión:", req.session);
+
         // Redirige al usuario a la página a la que intentaba acceder antes de iniciar sesión (si existe)
         // De lo contrario, redirige al usuario a la página de inicio
         const redirectTo = req.session.redirectTo || '/';
@@ -97,6 +100,7 @@ exports.loginUser = async (req, res) => {
         res.status(500).send('Error interno del servidor');
     }
 };
+
 
 
 exports.logoutUser = (req, res) => {
