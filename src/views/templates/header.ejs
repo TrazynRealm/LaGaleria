@@ -1,16 +1,16 @@
 <header class="bg-gradient-to-b from-header-negro from-10% via-header-verde via-33% to-header-negro to-90% text-white py-4 justify-center">
   <!-- CONTENEDOR HEADER -->
-  <div class="px-5 sm:px-10 grid grid-flow-col justify-between items-center">
+  <div class="px-5 sm:px-10 grid grid-cols-3 items-center">
     <!-- BRAND -->
-    <div class="flex items-center">
+    <div class="flex justify-start items-center">
       <a href="/" class="rounded-full mx-4">
         <img src="/img/marine.png" alt="Imagen 4" class="w-10 h-10 rounded-full" />
       </a>
-      <h3 class="hidden md:block text-2xl font-extrabold tracking-tight">Trazyn's Realm</h3>
+      <h3 class="hidden lg:block text-2xl font-extrabold tracking-tight">Trazyn's Realm</h3>
 
     </div>
     <!-- NAVBAR -->
-    <nav class="flex space-x-6">
+    <nav class="flex justify-center space-x-6">
       <a href="/" class="hover:text-gray-300">Inicio</a>
       <a href="/forum" class="hover:text-gray-300">Foro</a>
       <a href="/products" class="hover:text-gray-300">Productos</a>
@@ -18,7 +18,7 @@
     </nav>
 
     <!-- SESIÓN -->
-    <div class="lg:flex items-center space-x-4">
+    <div class="flex justify-end items-center space-x-4">
       <!-- Navbar para usuarios autenticados -->
       <% if (loggedIn) { %>
           <div class="dropdown relative bg-transparent border-2 border-white text-white rounded-lg hover:bg-transparent hover:text-yellow-500 hover:border-yellow-500 cursor-pointer">

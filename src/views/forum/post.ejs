@@ -1,69 +1,98 @@
 <%- include("../templates/head") %>
+    <%- include('../templates/header', { loggedIn: loggedIn }) %>
 
-<%- include("../templates/header") %>
+        <!-- VISTA PARA "ALL POSTS" -->
+        <main class="mx-auto max-w-7xl flex-1 w-full">
+            <section class="grid gap-4 md:gap-8 p-4 md:p-6">
+                <div class="px-8 py-4 rounded-lg border bg-header-registro2 text-white shadow-sm ">
+                    <!-- ZONA CREADOR DEL POST -->
+                    <div>
+                        <div class="grid">
+                            <!-- TÍTULO POST -->
+                            <h1 class="text-3xl font-semibold text-yellow-500">
+                                <%= post.title %>
+                            </h1>
+                            <!-- AUTOR POST -->
+                            <p class="italic pt-2 text-header-verde">
+                                <%= post.author.username %>
+                                    <%= post.createdAt %>
+                            </p>
+                        </div>
+                        <!-- CONTENIDO POST -->
+                        <p class="mt-1 p-2 rounded-md w-full bg-header-registro">
+                            <%= post.content %>
+                        </p>
 
-<div class="container mx-auto py-8">
-    <!-- Contenido del post -->
-    <div class="mb-8">
-        <h1 class="text-3xl font-semibold mb-4"><%= post.title %></h1>
-        <p class="mb-4"><%= post.content %></p>
-        <p class="text-gray-600">Por <%= post.author.username %>, <%= post.createdAt %></p>
-    </div>
-
-    <!-- Botón para abrir el modal de respuesta -->
-    <% if (loggedIn) { %>
-        <button id="replyModalButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#replyModal">
-            Responder
-        </button>
-    <% } %>
-
-    <!-- Comentarios -->
-    <div>
-        <h2 class="text-xl font-semibold mb-2">Comentarios</h2>
-        <% if (comments.length === 0) { %>
-            <p>No hay comentarios aún.</p>
-        <% } else { %>
-            <% comments.forEach(comment => { %>
-                <div class="mb-4">
-                    <p class="text-gray-600">Por <%= comment.author.username %>, <%= comment.createdAt %></p>
-                    <p><%= comment.content %></p>
-                </div>
-            <% }); %>
-        <% } %>
-    </div>
-</div>
-
-<!-- Modal para agregar un comentario -->
-<div class="modal fade" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="replyModalLabel">Responder al Post</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="/forum/post/<%= post._id %>/add-comment" method="POST">
-                    <div class="form-group">
-                        <label for="commentContent">Contenido del Comentario</label>
-                        <textarea class="form-control" id="commentContent" name="content" rows="3" required></textarea>
+                        <!-- BOTÓN MODAL "RESPONDER" -->
+                        <% if (loggedIn) { %>
+                            <button id="replyModalButton" type="button"
+                                class="px-2 rounded-full hover:border-yellow-500 mt-2 text-sm text-white border hover:bg-gradient-to-r from-header-verde to-yellow-500 inline-block hover:text-transparent bg-clip-text"
+                                data-toggle="modal" data-target="#replyModal">
+                                Responder
+                            </button>
+                            <% } %>
                     </div>
-                    <button type="submit" class="btn btn-primary bg-header-verde">Enviar Comentario</button>
-                </form>
+
+                    <!-- ZONA COMENTARIOS -->
+                    <div>
+                        <h2 class="text-xl font-semibold mb-2 pt-4  text-yellow-500">Comentarios</h2>
+                        <div class="mt-1 p-2 rounded-md w-full bg-header-registro">
+                            <% if (comments.length===0) { %>
+                                <p>No hay comentarios aún.</p>
+                                <% } else { %>
+                                    <% comments.forEach(comment=> { %>
+                                        <div class="mb-4">
+                                            <p class="text-gray-600">Por <%= comment.author.username %>, <%=
+                                                        comment.createdAt %>
+                                            </p>
+                                            <p>
+                                                <%= comment.content %>
+                                            </p>
+                                        </div>
+                                        <% }); %>
+                                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Modal para agregar un comentario -->
+        <div class="modal fade" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content bg-red-500">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="replyModalLabel">Responder al Post</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/forum/post/<%= post._id %>/add-comment" method="POST">
+                            <div class="form-group">
+                                <label for="commentContent">Contenido del Comentario</label>
+                                <textarea class="form-control" id="commentContent" name="content" rows="3"
+                                    required></textarea>
+                            </div>
+                            <button type="submit"
+                                class="bg-transparent border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
+                                Enviar comentario
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Aquí va el HTML del pie de página, como los enlaces de redes sociales, información de contacto, etc. -->
-<script>
-    // Espera a que el documento esté completamente cargado
-    document.addEventListener("DOMContentLoaded", function() {
-        // Agrega un evento click al botón de respuesta
-        document.querySelector("#replyModalButton").addEventListener("click", function() {
-            // Muestra el modal de respuesta
-            $('#replyModal').modal('show');
-        });
-    });
-</script>
+        <!-- Aquí va el HTML del pie de página, como los enlaces de redes sociales, información de contacto, etc. -->
+        <script>
+            // Espera a que el documento esté completamente cargado
+            document.addEventListener("DOMContentLoaded", function () {
+                // Agrega un evento click al botón de respuesta
+                document.querySelector("#replyModalButton").addEventListener("click", function () {
+                    // Muestra el modal de respuesta
+                    $('#replyModal').modal('show');
+                });
+            });
+        </script>

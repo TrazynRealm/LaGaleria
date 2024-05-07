@@ -1,0 +1,33 @@
+<main class="mx-auto max-w-7xl flex-1 w-full">
+    <section class="grid gap-4 md:gap-8 p-4 md:p-6">
+        <div class="px-8 py-4 rounded-lg border bg-header-registro2 text-white shadow-sm ">
+            <!-- BLOQUE 1 -->
+            <div class="flex justify-between items-center mb-4">
+                <!-- TÍTULO -->
+                <h1 class="text-3xl font-semibold text-yellow-500">FORO</h1>
+                <!-- BTN "NUEVO POST" -->
+                <% if (loggedIn) { %>
+                    <a href="/forum/new-post"
+                        class="bg-header-registro border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">Nuevo
+                        Post</a>
+                    <% } %>
+            </div>
+
+            <!-- MENSAJES MÁS RECIENTES (orden inverso) -->
+            <div class="grid gap-4">
+                <h1 class="text-xl underline font-semibold text-yellow-500">Últimos posts</h1>
+                <% posts.reverse().forEach(post=> { %>
+                    <a href="/forum/post/<%= post._id %>"
+                        class="bg-header-registro border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
+                        <h2 class="text-lg font-semibold mb-2">
+                            <%= post.title %>
+                        </h2>
+                        <p class="text-header-verde italic"><%= post.author.username %>
+                                <%= post.createdAt %>
+                        </p>
+                    </a>
+                    <% }); %>
+            </div>
+        </div>
+    </section>
+</main>
