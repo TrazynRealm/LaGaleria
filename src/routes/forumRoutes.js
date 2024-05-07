@@ -21,7 +21,7 @@ router.get('/forum/new-post', forumController.getCreatePostPage);
 router.post('/forum/new-post',forumController.createPost);
 
 // Ruta para agregar un comentario a un post existente
-router.post('/forum/post/:postId/add-comment', isAuthenticated, forumController.addComment);
+router.post('/forum/post/:postId/add-comment', forumController.addComment);
 
 router.get('/welcome', (req, res) => {
     res.render('welcome/index', { sets, loggedIn: req.isAuthenticated() });

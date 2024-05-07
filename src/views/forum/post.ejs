@@ -25,77 +25,64 @@
 
                         <!-- BOTÓN MODAL "RESPONDER" -->
                         <% if (loggedIn) { %>
-                            <button id="replyModalButton" type="button"
-                                class="px-2 rounded-full hover:border-yellow-500 mt-2 text-sm text-white border hover:bg-gradient-to-r from-header-verde to-yellow-500 inline-block hover:text-transparent bg-clip-text"
-                                data-toggle="modal" data-target="#replyModal">
+                            <button id="openModalButton" type="button"
+                                class="px-2 rounded-full hover:border-yellow-500 mt-2 text-sm text-white border hover:bg-gradient-to-r from-header-verde to-yellow-500 inline-block hover:text-transparent bg-clip-text">
                                 Responder
                             </button>
+                            <!-- MODAL PARA ENVIAR COMENTARIOS -->
+                            <div id="replyModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
+                                <div class="flex items-center justify-center min-h-screen">
+                                    <div
+                                        class="px-8 py-4 rounded-lg border bg-gradient-to-t from-header-negro to-header-registro2 text-white shadow-sm">
+                                        <div class="flex justify-between gap-5">
+                                            <!-- Contenido del modal aquí -->
+                                            <h2 class="text-xl font-semibold">Responder a <span class="text-yellow-500">
+                                                    <%= post.author.username %>
+                                                </span>
+                                            </h2>
+                                            <!-- Botón para cerrar el modal sin enviar comentario -->
+                                            <button id="closeModalButton"
+                                                class="bg-transparent border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
+                                                X
+                                            </button>
+                                        </div>
+                                        <form action="/forum/post/<%= post._id %>/add-comment" method="POST">
+                                            <div class="grid justify-center mt-4">
+                                                <!-- <div contenteditable="true" class="form-control bg-header-registro rounded-lg" id="commentContent" name="content" required></div> -->
+                                                <textarea class="form-control bg-header-registro rounded-lg p-4"
+                                                    id="commentContent" name="content" rows="5" required></textarea>
+
+                                                <button type="submit"
+                                                    class="mt-4 bg-transparent border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">Enviar
+                                                    comentario</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
                             <% } %>
-                    </div>
 
-                    <!-- ZONA COMENTARIOS -->
-                    <div>
-                        <h2 class="text-xl font-semibold mb-2 pt-4  text-yellow-500">Comentarios</h2>
-                        <div class="mt-1 p-2 rounded-md w-full bg-header-registro">
-                            <% if (comments.length===0) { %>
-                                <p>No hay comentarios aún.</p>
-                                <% } else { %>
-                                    <% comments.forEach(comment=> { %>
-                                        <div class="mb-4">
-                                            <p class="text-gray-600">Por <%= comment.author.username %>, <%=
-                                                        comment.createdAt %>
-                                            </p>
-                                            <p class="overflow-wrap break-words">
-                                                <%= comment.content %>
-                                            </p>
-                                        </div>
-                                        <% }); %>
-                                            <% } %>
-                        </div>
-                    </div>
-                </div>
-                <!-- AÑADIR UNA RESPUESTA -->
-                <div class="px-8 py-4 rounded-lg border bg-header-registro2 text-white shadow-sm ">
-                    <div class="modal fade" id="replyModal" tabindex="-1" role="dialog"
-                        aria-labelledby="replyModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content bg-red-500">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="replyModalLabel">Responder al Post</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                                <!-- ZONA COMENTARIOS -->
+                                <div>
+                                    <h2 class="text-xl font-semibold mb-2 pt-4  text-yellow-500">Comentarios</h2>
+                                    <div class="mt-1 p-2 rounded-md w-full bg-header-registro">
+                                        <% if (comments.length===0) { %>
+                                            <p>No hay comentarios aún.</p>
+                                            <% } else { %>
+                                                <% comments.forEach(comment=> { %>
+                                                    <div class="mb-4">
+                                                        <p class="text-header-verde">Por <%= comment.author.username %>,
+                                                                <%= comment.createdAt %>
+                                                        </p>
+                                                        <p class="overflow-wrap break-words">
+                                                            <%= comment.content %>
+                                                        </p>
+                                                    </div>
+                                                    <% }); %>
+                                                        <% } %>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    <form action="/forum/post/<%= post._id %>/add-comment" method="POST">
-                                        <div class="form-group">
-                                            <label for="commentContent">Contenido del Comentario</label>
-                                            <textarea class="form-control" id="commentContent" name="content" rows="3"
-                                                required></textarea>
-                                        </div>
-                                        <button type="submit"
-                                            class="bg-transparent border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
-                                            Enviar comentario
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                </div>
-                <!-- PRUEBAS VARIAS -->
-                <div>
-                    <button id="openModalButton"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Abrir
-                        Modal</button>
-
-                    <div id="replyModalButton" class="fixed z-10 inset-0 overflow-y-auto hidden">
-                        <div class="flex items-center justify-center min-h-screen">
-                            <div class="bg-white rounded-lg max-w-md mx-auto p-6">
-                                HOLA AMIGO
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </section>
         </main>

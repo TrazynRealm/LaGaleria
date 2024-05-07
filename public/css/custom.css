@@ -30,3 +30,11 @@
 .set-card:hover {
     border: 2px solid green;
 }
+
+/* INPUT ENVIAR COMENTARIO */
+
+#commentContent{
+    width: 600px;
+    height: 200px;
+
+}

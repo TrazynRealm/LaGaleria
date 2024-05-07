@@ -32,3 +32,31 @@ $(document).ready(function() {
     });
 });
 
+// Función para abrir el modal
+function openModal() {
+    var modal = document.getElementById("replyModal");
+    modal.classList.remove("hidden");
+    document.body.classList.add("overflow-hidden");
+}
+
+// Función para cerrar el modal
+function closeModal() {
+    var modal = document.getElementById("replyModal");
+    modal.classList.add("hidden");
+    document.body.classList.remove("overflow-hidden");
+}
+
+// Event listener para abrir el modal cuando se hace clic en el botón
+document.getElementById("openModalButton").addEventListener("click", openModal);
+
+// Event listener para cerrar el modal cuando se hace clic fuera de él
+document.addEventListener("click", function(event) {
+    var modal = document.getElementById("replyModal");
+    if (event.target === modal) {
+        closeModal();
+    }
+});
+
+// Event listener para cerrar el modal cuando se hace clic en el botón de cerrar
+document.getElementById("closeModalButton").addEventListener("click", closeModal);
+
