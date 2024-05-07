@@ -66,7 +66,7 @@ exports.addComment = async (req, res) => {
         const { content } = req.body;
         const newComment = new Comment({
             content,
-            author: req.user._id,
+            author: req.session.user._id, // Asegúrate de que estás utilizando req.session.user para obtener el ID del usuario
             post: postId
         });
         await newComment.save();
@@ -76,3 +76,4 @@ exports.addComment = async (req, res) => {
         res.status(500).send('Error al agregar el comentario');
     }
 };
+

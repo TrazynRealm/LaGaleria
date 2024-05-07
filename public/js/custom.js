@@ -31,3 +31,4 @@ $(document).ready(function() {
         $('.icon-image').css('filter', 'brightness(100%)');
     });
 });
+
