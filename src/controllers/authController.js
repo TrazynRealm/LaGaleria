@@ -10,7 +10,7 @@ exports.getRegisterPage = (req, res) => {
 exports.registerUser = async (req, res) => {
     try {
         // Extraer datos del cuerpo del formulario
-        const { username, email, password } = req.body;
+        const { username, email, password, role } = req.body;
 
         // Verificar si el usuario ya existe en la base de datos
         const existingUser = await User.findOne({ email });
@@ -25,7 +25,8 @@ exports.registerUser = async (req, res) => {
         const newUser = new User({
             username,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            role
         });
 
         // Guardar el nuevo usuario en la base de datos
