@@ -1,0 +1,29 @@
+<!-- Modal de Edición de Producto -->
+<% products.forEach(product => { %>
+    <div id="editProductModal_<%= product._id %>" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="px-8 py-4 rounded-lg border bg-gradient-to-t from-header-negro to-header-registro2 text-white shadow-sm">
+                <div class="flex justify-between gap-5">
+                    <!-- Contenido del modal aquí -->
+                    <h2 class="text-xl font-semibold">Editar Producto</h2>
+                    <!-- Botón para cerrar el modal -->
+                    <button id="closeEditModalButton_<%= product._id %>" class="bg-transparent border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
+                        X
+                    </button>
+                </div>
+                <form id="editProductForm_<%= product._id %>" class="mt-4 space-y-4">
+                    <!-- Campos del formulario con valores actuales del producto -->
+                    <input type="text" name="name" placeholder="Nombre del Producto" value="<%= product.name %>" class="form-control bg-header-registro rounded-lg p-4 w-full mt-1 focus:outline-none focus:border-yellow-500">
+                    <input type="number" name="price" placeholder="Precio" value="<%= product.price %>" class="form-control bg-header-registro rounded-lg p-4 w-full mt-1 focus:outline-none focus:border-yellow-500">
+                    <input type="text" name="image" placeholder="URL de la imagen" value="<%= product.image %>" class="form-control bg-header-registro rounded-lg p-4 w-full mt-1 focus:outline-none focus:border-yellow-500">
+                    <textarea name="description" placeholder="Descripción" class="form-control bg-header-registro rounded-lg p-4 w-full mt-1 focus:outline-none focus:border-yellow-500 h-32"><%= product.description %></textarea>
+                </form>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-transparent border-2 border-white text-white hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+<% }); %>

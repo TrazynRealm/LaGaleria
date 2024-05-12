@@ -25,7 +25,8 @@
                             </td>
                             <td class="px-4 py-2"><%= product.description %></td>
                             <td class="px-4 py-2">
-                                <a href="/admin/products/edit/<%= product._id %>" class="text-blue-500 hover:text-blue-700">Editar</a> |
+                                <!-- Cambiado el enlace por un botón -->
+                                <button id="openEditProductModal_<%= product._id %>" class="text-blue-500 hover:text-blue-700">Editar</button> |
                                 <form action="/admin/products/delete/<%= product._id %>" method="post" class="inline-block">
                                     <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Eliminar</button>
                                 </form>
@@ -47,25 +48,29 @@
             // Abre el modal de creación de producto
             document.getElementById('createProductModal').classList.remove('hidden');
         });
+    
+        // Agrega controladores de eventos para cada botón de edición
+        products.forEach(product => { 
+            document.getElementById(`openEditProductModal_${product._id}`).addEventListener('click', function() {
+                // Abre el modal de edición de producto correspondiente
+                document.getElementById(`editProductModal_${product._id}`).classList.remove('hidden');
+            });
+        }); 
+    
+        // Función para ocultar el modal de edición de producto
+        function hideEditModal(productId) {
+            document.getElementById(`editProductModal_${productId}`).classList.add('hidden');
+        }
+    
+        // Agrega controladores de eventos para cerrar cada modal de edición
+        products.forEach(product => { 
+            document.getElementById(`closeEditModalButton_${product._id}`).addEventListener('click', function() {
+                // Oculta el modal de edición de producto correspondiente al hacer clic en el botón de cierre
+                hideEditModal(product._id);
+            });
+        }); 
     });
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Función para mostrar el modal
-            function showModal() {
-                document.getElementById('createProductModal').classList.remove('hidden');
-            }
-        
-            // Función para ocultar el modal
-            function hideModal() {
-                document.getElementById('createProductModal').classList.add('hidden');
-            }
-        
-            // Agrega el controlador de eventos al botón de cierre
-            document.getElementById('closeModalButton').addEventListener('click', hideModal);
-        
-            // Comentado la llamada a showModal() para evitar que el modal se muestre automáticamente
-            // showModal();
-        });
-    </script>
+    
 <%- include("cProduct.ejs") %>
+<%- include("eProduct.ejs", { products: products }) %>

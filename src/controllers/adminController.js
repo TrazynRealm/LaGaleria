@@ -23,6 +23,7 @@ exports.getAdminPage = async (req, res) => {
     // Aquí puedes agregar lógica adicional si es necesario, como cargar datos específicos para la vista
     res.render('admin', { user });
 };
+
 exports.getAdminUsersPage = async (req, res) => {
     try {
         const users = await User.find({}); // Asegúrate de que estás obteniendo los usuarios correctamente
