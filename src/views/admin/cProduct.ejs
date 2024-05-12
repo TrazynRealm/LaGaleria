@@ -1,25 +1,24 @@
 <!-- Modal de Creación de Producto -->
 <div id="createProductModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <!-- Overlay -->
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-        <!-- Modal -->
-        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                    Agregar Producto
-                </h3>
-                <form id="createProductForm" class="mt-4 space-y-4">
-                    <!-- Campos del formulario -->
-                    <input type="text" name="name" placeholder="Nombre del Producto" class="border p-2 rounded">
-                    <input type="number" name="price" placeholder="Precio" class="border p-2 rounded">
-                    <input type="file" name="image" class="border p-2 rounded">
-                    <textarea name="description" placeholder="Descripción" class="border p-2 rounded"></textarea>
-                </form>
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="px-8 py-4 rounded-lg border bg-gradient-to-t from-header-negro to-header-registro2 text-white shadow-sm">
+            <div class="flex justify-between gap-5">
+                <!-- Contenido del modal aquí -->
+                <h2 class="text-xl font-semibold">Agregar Producto</h2>
+                <!-- Botón para cerrar el modal sin enviar producto -->
+                <button id="closeModalButton" class="bg-transparent border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
+                    X
+                </button>
             </div>
+            <form id="createProductForm" class="mt-4 space-y-4">
+                <!-- Campos del formulario -->
+                <input type="text" name="name" placeholder="Nombre del Producto" class="form-control bg-header-registro rounded-lg p-4 w-full mt-1 focus:outline-none focus:border-yellow-500">
+                <input type="number" name="price" placeholder="Precio" class="form-control bg-header-registro rounded-lg p-4 w-full mt-1 focus:outline-none focus:border-yellow-500">
+                <input type="file" name="image" class="form-control bg-header-registro rounded-lg p-4 w-full mt-1 focus:outline-none focus:border-yellow-500">
+                <textarea name="description" placeholder="Descripción" class="form-control bg-header-registro rounded-lg p-4 w-full mt-1 focus:outline-none focus:border-yellow-500 h-32"></textarea>
+            </form>
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-transparent border-2 border-white text-white hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
                     Guardar Producto
                 </button>
             </div>
