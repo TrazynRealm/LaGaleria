@@ -40,45 +40,41 @@
             </div>
         </div>
         <div class="mt-4">
-            <button id="openCreateProductModal" class="border rounded-lg bg-header-registro2 px-4 py-2 hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">Agregar Producto</button>
+            <!-- Botón para abrir el modal de creación de producto -->
+            <button id="openCreateProductModalButton" class=" text-white border rounded-lg bg-header-registro2 px-4 py-2 hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">Agregar Producto</button>
         </div>
-        
     </section>
 </main>
 
-<!-- Modal de Edición -->
-<%- include("eProduct.ejs", { products: products }) %>
+<!-- Modal de Creación de Producto -->
+<%- include("cProduct") %>
 
-<!-- Modal de Creación -->
-<%- include("cProduct.ejs") %>
-
+<!-- Script para manejar la apertura y cierre del modal de creación de producto -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Agrega controladores de eventos para cada botón de edición
-        products.forEach(product => { 
-            document.getElementById(`openEditProductModal_${product._id}`).addEventListener('click', function() {
-                // Abre el modal de edición de producto correspondiente
-                document.getElementById(`editProductModal_${product._id}`).classList.remove('hidden');
-            });
-        }); 
-    
-        // Función para ocultar el modal de edición de producto
-        function hideEditModal(productId) {
-            document.getElementById(`editProductModal_${productId}`).classList.add('hidden');
+        // Obtener referencia al botón para abrir el modal
+        const openModalButton = document.getElementById('openCreateProductModalButton');
+        
+        // Obtener referencia al modal
+        const createProductModal = document.getElementById('createProductModal');
+        
+        // Obtener referencia al botón para cerrar el modal
+        const closeModalButton = document.getElementById('closeModalButton');
+        
+        // Función para mostrar el modal
+        function openModal() {
+            createProductModal.classList.remove('hidden');
         }
-    
-        // Agrega controladores de eventos para cerrar cada modal de edición
-        products.forEach(product => { 
-            document.getElementById(`closeEditModalButton_${product._id}`).addEventListener('click', function() {
-                // Oculta el modal de edición de producto correspondiente al hacer clic en el botón de cierre
-                hideEditModal(product._id);
-            });
-        }); 
-
-        // Controlador de evento para abrir el modal de creación de producto
-        document.getElementById('openCreateProductModal').addEventListener('click', function() {
-            // Abre el modal de creación de producto
-            document.getElementById('createProductModal').classList.remove('hidden');
-        });
+        
+        // Función para ocultar el modal
+        function closeModal() {
+            createProductModal.classList.add('hidden');
+        }
+        
+        // Agregar evento click al botón de abrir modal
+        openModalButton.addEventListener('click', openModal);
+        
+        // Agregar evento click al botón de cerrar modal
+        closeModalButton.addEventListener('click', closeModal);
     });
 </script>
