@@ -3,52 +3,57 @@
 
 <main class="mx-auto max-w-7xl flex-1 w-full">
     <section class="grid gap-4 md:gap-8 p-4 md:p-6">
-        <h1 class="text-2xl font-bold text-center mb-4">Productos - Bienvenido, <%= user.username %></h1>
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-header-registro2 text-white">
-                    <tr>
-                        <th class="px-4 py-2">Nombre</th>
-                        <th class="px-4 py-2">Precio</th>
-                        <th class="px-4 py-2">Imagen</th>
-                        <th class="px-4 py-2">Descripción</th>
-                        <th class="px-4 py-2">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200">
-                    <% products.forEach(product => { %>
-                        <tr class="hover:bg-gray-100">
-                            <td class="px-4 py-2"><%= product.name %></td>
-                            <td class="px-4 py-2"><%= product.price %></td>
-                            <td class="px-4 py-2">
-                                <img src="<%= product.image %>" alt="<%= product.name %>" class="w-16 h-16 object-cover rounded">
-                            </td>
-                            <td class="px-4 py-2"><%= product.description %></td>
-                            <td class="px-4 py-2">
-                                <!-- Cambiado el enlace por un botón -->
-                                <button id="openEditProductModal_<%= product._id %>" class="text-blue-500 hover:text-blue-700">Editar</button> |
-                                <form action="/admin/products/delete/<%= product._id %>" method="post" class="inline-block">
-                                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Eliminar</button>
-                                </form>
-                            </td>
+        <div class="px-8 py-4 rounded-lg border bg-header-registro2 text-white shadow-sm">
+            <!-- ENCABEZADO -->
+            <h1 class="text-3xl font-semibold text-yellow-500 text-center mb-4">Productos - Bienvenido, <%= user.username %></h1>
+            <!-- CONTENIDO -->
+            <div class="overflow-x-auto bg-header-registro border-2 rounded-lg">
+                <table class="w-full">
+                    <thead class="bg-header-registro">
+                        <tr>
+                            <th class="px-4 py-2">Nombre</th>
+                            <th class="px-4 py-2">Precio</th>
+                            <th class="px-4 py-2">Imagen</th>
+                            <th class="px-4 py-2">Descripción</th>
+                            <th class="px-4 py-2">Acciones</th>
                         </tr>
-                    <% }); %>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="divide-y divide-blue-200">
+                        <% products.forEach(product => { %>
+                            <tr class="hover:text-yellow-500">
+                                <td class="px-4 py-2"><%= product.name %></td>
+                                <td class="px-4 py-2"><%= product.price %></td>
+                                <td class="px-4 py-2">
+                                    <img src="<%= product.image %>" alt="<%= product.name %>" class="w-16 h-16 object-cover rounded">
+                                </td>
+                                <td class="px-4 py-2"><%= product.description %></td>
+                                <td class="px-4 py-2 flex justify-center gap-4">
+                                    <button id="openEditProductModal_<%= product._id %>" class="text-blue-500 hover:text-blue-700">Editar</button>
+                                    <form action="/admin/products/delete/<%= product._id %>" method="post" class="inline-block">
+                                        <button type="submit" class="text-red-500 hover:text-red-700">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="mt-4">
-            <button id="openCreateProductModal" class="bg-header-registro2 text-white px-4 py-2 rounded hover:bg-header-negro">Agregar Producto</button>
+            <button id="openCreateProductModal" class="border rounded-lg bg-header-registro2 px-4 py-2 hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">Agregar Producto</button>
         </div>
         
     </section>
 </main>
+
+<!-- Modal de Edición -->
+<%- include("eProduct.ejs", { products: products }) %>
+
+<!-- Modal de Creación -->
+<%- include("cProduct.ejs") %>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('openCreateProductModal').addEventListener('click', function() {
-            // Abre el modal de creación de producto
-            document.getElementById('createProductModal').classList.remove('hidden');
-        });
-    
         // Agrega controladores de eventos para cada botón de edición
         products.forEach(product => { 
             document.getElementById(`openEditProductModal_${product._id}`).addEventListener('click', function() {
@@ -69,8 +74,11 @@
                 hideEditModal(product._id);
             });
         }); 
+
+        // Controlador de evento para abrir el modal de creación de producto
+        document.getElementById('openCreateProductModal').addEventListener('click', function() {
+            // Abre el modal de creación de producto
+            document.getElementById('createProductModal').classList.remove('hidden');
+        });
     });
-    </script>
-    
-<%- include("cProduct.ejs") %>
-<%- include("eProduct.ejs", { products: products }) %>
+</script>

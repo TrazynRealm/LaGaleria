@@ -30,12 +30,17 @@ exports.addToCart = async (req, res) => {
         // Guarda el carrito actualizado en la base de datos
         await cart.save();
 
-        res.status(200).send('Producto agregado al carrito exitosamente');
+        // Redirecciona al usuario de regreso a la página de productos después de agregar el producto al carrito
+        res.redirect('/products');
+
+        // Envía una respuesta vacía con un código de estado 200 para indicar que la operación fue exitosa
+        res.status(200).send();
     } catch (err) {
         console.error(err);
         res.status(500).send('Error al agregar producto al carrito');
     }
 };
+
 
 exports.removeFromCart = async (req, res) => {
     try {
@@ -94,15 +99,18 @@ exports.getCart = async (req, res) => {
             return res.status(401).send('Usuario no autenticado');
         }
 
+        // Verificar si req.session.user tiene la estructura esperada
+        if (!req.session.user._id) {
+            return res.status(400).send('ID de usuario no encontrado en la sesión del usuario');
+        }
+
+        // Imprimir el ID de usuario en la consola del servidor
+        console.log('ID de usuario:', req.session.user._id);
+
         const userId = req.session.user._id;
 
         // Busca el carrito del usuario
         const cart = await Cart.findOne({ user: userId }).populate('products.product');
-
-        if (!cart || cart.products.length === 0) {
-            // Renderiza la vista 'cartEmpty' si el carrito está vacío
-            return res.render('cartEmpty');
-        }
 
         // Renderiza la vista 'cart' con el carrito como contexto
         res.render('cart', { cart });
@@ -111,4 +119,6 @@ exports.getCart = async (req, res) => {
         res.status(500).send('Error al obtener el carrito del usuario');
     }
 };
+
+
 
