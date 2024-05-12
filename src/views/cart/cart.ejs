@@ -1,102 +1,66 @@
-<main>
-    <section>
-        <div className="container mx-auto px-4 py-8 md:py-12">
-            <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8">
-              <div className="border rounded-lg p-6 bg-white dark:bg-gray-900 dark:border-gray-800">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-bold">Your Cart</h2>
-                  <button className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50">
-                    <TrashIcon className="w-5 h-5" />
-                    <span className="sr-only">Clear cart</span>
-                  </button>
+<main class="mx-auto max-w-7xl flex-1 w-full">
+    <section class="grid gap-4 md:gap-8 p-4 md:p-6">
+        <div class="px-8 py-4 rounded-lg border bg-header-registro2 text-white shadow-sm">
+            <!-- ENCABEZADO -->
+            <div class="grid grid-cols-2 justify-between">
+                <!-- PÁGINA -->
+                <div class="grid items-center mb-2">
+                    <!-- TÍTULO -->
+                    <h1 class="text-3xl font-semibold text-yellow-500 mb-1">CARRITO</h1>
+                    <!-- SUBTÍTULO -->
+                    <h2 class="text-xl font-semibold text-yellow-500">Tus productos</h2>
                 </div>
-                <div className="space-y-6">
-                  <div className="grid grid-cols-[80px_1fr_auto] items-center gap-4">
-                    <div>
-                      <img
-                        alt="Product Image"
-                        className="rounded-md object-cover"
-                        height={80}
-                        src="/placeholder.svg"
-                        width={80}
-                      />
-                    </div>
-                    <div>
-                      <h3 className="font-medium">Acme Circles T-Shirt</h3>
-                      <p className="text-gray-500 dark:text-gray-400">60% combed ringspun cotton/40% polyester jersey tee.</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Select className="w-20" defaultValue="1">
-                        <SelectTrigger>
-                          <SelectValue placeholder="Qty" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="1">1</SelectItem>
-                          <SelectItem value="2">2</SelectItem>
-                          <SelectItem value="3">3</SelectItem>
-                          <SelectItem value="4">4</SelectItem>
-                          <SelectItem value="5">5</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <div className="font-medium">$99.00</div>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-[80px_1fr_auto] items-center gap-4">
-                    <div>
-                      <img
-                        alt="Product Image"
-                        className="rounded-md object-cover"
-                        height={80}
-                        src="/placeholder.svg"
-                        width={80}
-                      />
-                    </div>
-                    <div>
-                      <h3 className="font-medium">Aqua Filters</h3>
-                      <p className="text-gray-500 dark:text-gray-400">High-quality water filters for your home.</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Select className="w-20" defaultValue="1">
-                        <SelectTrigger>
-                          <SelectValue placeholder="Qty" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="1">1</SelectItem>
-                          <SelectItem value="2">2</SelectItem>
-                          <SelectItem value="3">3</SelectItem>
-                          <SelectItem value="4">4</SelectItem>
-                          <SelectItem value="5">5</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <div className="font-medium">$49.00</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="border rounded-lg p-6 bg-white dark:bg-gray-900 dark:border-gray-800">
-                <h2 className="text-2xl font-bold mb-6">Order Summary</h2>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span>Subtotal</span>
-                    <span className="font-medium">$148.00</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Shipping</span>
-                    <span className="font-medium">$10.00</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Tax</span>
-                    <span className="font-medium">$12.00</span>
-                  </div>
-                  <Separator />
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold">Total</span>
-                    <span className="text-lg font-bold">$170.00</span>
-                  </div>
-                </div>
-                <Button className="w-full mt-6">Proceed to Checkout</Button>
-              </div>
+                <!-- ACTIONS -->
+                <!-- <div class="flex justify-center items-center">
+                    <a href="/admin/users/add" class="border rounded-lg bg-header-registro2 px-4 py-2 hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">Agregar Usuario</a>
+                </div> -->
             </div>
-          </div>
+            <!-- CONTENIDO -->
+            <div class="text-center bg-header-registro border-2 rounded-lg p-4">
+                <!-- CARRITO CON PRODUCTOS -->
+                <% if (cart && cart.products.length > 0) { %>
+                    <div class="container mx-auto px-4 py-8 md:py-12">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <% cart.products.forEach(item => { %>
+                                <div class="border rounded-lg p-6 bg-white dark:bg-gray-900 dark:border-gray-800">
+                                    <div class="flex items-center justify-between mb-6">
+                                        <h2 class="text-2xl font-bold">Your Cart</h2>
+                                        <button class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50">
+                                            <TrashIcon class="w-5 h-5" />
+                                            <span class="sr-only">Clear cart</span>
+                                        </button>
+                                    </div>
+                                    <div class="space-y-6">
+                                        <div class="grid grid-cols-[80px_1fr_auto] items-center gap-4">
+                                            <div>
+                                                <img alt="Product Image" class="rounded-md object-cover" src="/placeholder.svg" width="80" height="80" />
+                                            </div>
+                                            <div>
+                                                <h3 class="font-medium"><%= item.product.name %></h3>
+                                                <p class="text-gray-500 dark:text-gray-400"><%= item.product.description %></p>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <select class="w-20" name="quantity">
+                                                    <% for(let i = 1; i <= 5; i++) { %>
+                                                        <option value="<%= i %>" <% if (item.quantity === i) { %>selected<% } %>><%= i %></option>
+                                                    <% } %>
+                                                </select>
+                                                <div class="font-medium"><%= item.product.price %></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                    </div>
+                    <!-- CARRITO VACÍO -->
+                <% } else { %>
+                    <div class="text-center">
+                        <h2 class="text-2xl font-bold mb-4">Carrito Vacío</h2>
+                        <p class="text-yellow-500">Tu carrito está vacío. ¡Agrega algunos productos!</p>
+                    </div>
+                <% } %>
+            </div>
+        </div>
     </section>
 </main>
