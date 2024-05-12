@@ -1,0 +1,54 @@
+<!-- Modal de Confirmación de Eliminación de Producto -->
+<div id="deleteProductModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="px-8 py-4 rounded-lg border bg-gradient-to-t from-header-negro to-header-registro2 text-white shadow-sm">
+            <div class="flex justify-between gap-5">
+                <!-- Contenido del modal aquí -->
+                <h2 class="text-xl font-semibold">¿Estás seguro de eliminar este producto?</h2>
+                <!-- Botón para cerrar el modal sin eliminar el producto -->
+                <button id="closeDeleteModalButton" class="bg-transparent border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
+                    Cancelar
+                </button>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <!-- Botón para confirmar la eliminación del producto -->
+                <form id="deleteProductForm_<%= product._id %>" action="/admin/products/delete/<%= product._id %>" method="post" class="inline-block">
+                    <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-transparent border-2 border-white text-white hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
+                        Eliminar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Obtener referencia al botón de abrir el modal de confirmación
+        const openDeleteModalButtons = document.querySelectorAll('[id^="openDeleteProductModal"]');
+        
+        // Obtener referencia al modal de confirmación
+        const deleteProductModal = document.getElementById('deleteProductModal');
+        
+        // Obtener referencia al botón de cerrar el modal de confirmación
+        const closeDeleteModalButton = document.getElementById('closeDeleteModalButton');
+        
+        // Función para mostrar el modal de confirmación
+        function openDeleteModal() {
+            deleteProductModal.classList.remove('hidden');
+        }
+        
+        // Función para ocultar el modal de confirmación
+        function closeDeleteModal() {
+            deleteProductModal.classList.add('hidden');
+        }
+        
+        // Agregar evento click a todos los botones de abrir modal de confirmación
+        openDeleteModalButtons.forEach(button => {
+            button.addEventListener('click', openDeleteModal);
+        });
+        
+        // Agregar evento click al botón de cerrar modal de confirmación
+        closeDeleteModalButton.addEventListener('click', closeDeleteModal);
+    });
+</script>

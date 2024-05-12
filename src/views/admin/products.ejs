@@ -29,11 +29,11 @@
                                 <td class="px-4 py-2"><%= product.description %></td>
                                 <td class="px-4 py-2 flex justify-center gap-4">
                                     <button id="openEditProductModal_<%= product._id %>" class="text-blue-500 hover:text-blue-700">Editar</button>
-                                    <form action="/admin/products/delete/<%= product._id %>" method="post" class="inline-block">
-                                        <button type="submit" class="text-red-500 hover:text-red-700">Eliminar</button>
-                                    </form>
+                                    <button id="openDeleteProductModal_<%= product._id %>" class="text-red-500 hover:text-red-700">Eliminar</button>
                                 </td>
                             </tr>
+                            <%- include("cProduct") %>
+                            <%- include("dProduct", { product: product }) %>
                         <% }); %>
                     </tbody>
                 </table>
@@ -47,7 +47,6 @@
 </main>
 
 <!-- Modal de Creación de Producto -->
-<%- include("cProduct") %>
 
 <!-- Script para manejar la apertura y cierre del modal de creación de producto -->
 <script>
