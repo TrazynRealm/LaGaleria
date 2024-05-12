@@ -1,42 +1,66 @@
 <main class="mx-auto max-w-7xl flex-1 w-full">
     <section class="grid gap-4 md:gap-8 p-4 md:p-6">
-        <h1 class="text-2xl font-bold">Perfil de Usuario</h1>
-        <form action="/profile/update" method="POST" class="mt-4">
-            <!-- Card para el email -->
-            <div class="mt-4 bg-white bg-opacity-25 rounded-lg p-6">
-                <h2 class="text-lg font-semibold mb-4">Email</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="email" class="block">Email:</label>
-                        <input type="email" id="email" name="email" value="<%= user.email %>"
-                            class="block w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-yellow-500"
-                            required>
+        <div class="px-8 py-4 rounded-lg border bg-header-registro2 text-white shadow-sm ">
+            <!-- ENCABEZADO -->
+            <div class="grid grid-cols-2 justify-between items-center mb-4">
+                <!-- TÍTULO -->
+                <h1 class="text-3xl font-semibold text-yellow-500">PERFIL</h1>
+                <!-- EMAIL - USERNAME -->
+                <% if (loggedIn) { %>
+                    <div class="flex justify-evenly">
+                        <p>
+                            <span class="text-yellow-500">Username:</span>
+                            <%= user.username %>
+                        </p>
+                        <p>
+                            <span class="text-yellow-500">Email:</span>
+                            <%= user.email %>
+                        </p>
                     </div>
-                    <!-- <div>
-                        <p class="text-gray-300"><br><%= user.email %></p>
-                    </div> -->
-                </div>
+                    <% } %>
             </div>
-            <!-- Card para la contraseña -->
-            <div class="mt-4 bg-white bg-opacity-25 rounded-lg p-6">
-                <h2 class="text-lg font-semibold mb-4">Nueva Contraseña</h2>
-                <div class="mb-4">
-                    <label for="password" class="block">Nueva Contraseña:</label>
-                    <input type="password" id="password" name="password"
-                        class="block w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-yellow-500"
-                        required>
+            <!-- CONTENIDO -->
+            <form action="/profile/update" method="POST" class="mt-4 gap-4">
+                <!-- CARDS -->
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- CAMBIAR EMAIL -->
+                    <div class="bg-header-registro mt-4 rounded-lg p-6">
+                        <h2 class="text-yellow-500 text-lg font-semibold mb-4">Cambiar email</h2>
+                        <div class=" gap-4">
+                            <div>
+                                <label for="email" class="block">Email:</label>
+                                <input type="email" id="email" name="email" value="<%= user.email %>"
+                                    class="text-black block w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-yellow-500"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- CAMBIAR PASSWORD -->
+                    <div class="bg-header-registro mt-4 rounded-lg p-6">
+                        <h2 class="text-yellow-500 text-lg font-semibold mb-4">Cambiar Contraseña</h2>
+                        <div class="mb-4">
+                            <label for="password" class="block">Nueva Contraseña:</label>
+                            <input type="password" id="password" name="password"
+                                class="text-black block w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-yellow-500"
+                                required>
+                        </div>
+                        <div>
+                            <label for="confirmPassword" class="block">Confirmar Contraseña:</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword"
+                                class="text-black block w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-yellow-500"
+                                required>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label for="confirmPassword" class="block">Confirmar Contraseña:</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword"
-                        class="block w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-yellow-500"
-                        required>
+                <!-- ENVIAR DATOS -->
+                <div class="flex justify-center">
+                    <button type="submit"
+                        class="mt-4 border bg-header-registro2 text-white px-4 py-2 rounded-md hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500 focus:outline-none focus:bg-gradient-to-t focus:from-header-negro focus:to-header-registro2">
+                        Guardar Cambios
+                    </button>
                 </div>
-                <button type="submit"
-                    class="mt-4 bg-header-registro2 text-white px-4 py-2 rounded-md hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500 focus:outline-none focus:bg-gradient-to-t focus:from-header-negro focus:to-header-registro2">
-                    Guardar Cambios
-                </button>
-            </div>
-        </form>
+            </form>
+
+        </div>
     </section>
 </main>
