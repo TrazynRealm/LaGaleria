@@ -36,7 +36,36 @@
             </table>
         </div>
         <div class="mt-4">
-            <a href="/admin/products/add" class="bg-header-registro2 text-white px-4 py-2 rounded hover:bg-header-negro">Agregar Producto</a>
+            <button id="openCreateProductModal" class="bg-header-registro2 text-white px-4 py-2 rounded hover:bg-header-negro">Agregar Producto</button>
         </div>
+        
     </section>
 </main>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('openCreateProductModal').addEventListener('click', function() {
+            // Abre el modal de creación de producto
+            document.getElementById('createProductModal').classList.remove('hidden');
+        });
+    });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Función para mostrar el modal
+            function showModal() {
+                document.getElementById('createProductModal').classList.remove('hidden');
+            }
+        
+            // Función para ocultar el modal
+            function hideModal() {
+                document.getElementById('createProductModal').classList.add('hidden');
+            }
+        
+            // Agrega el controlador de eventos al botón de cierre
+            document.getElementById('closeModalButton').addEventListener('click', hideModal);
+        
+            // Comentado la llamada a showModal() para evitar que el modal se muestre automáticamente
+            // showModal();
+        });
+    </script>
+<%- include("cProduct.ejs") %>
