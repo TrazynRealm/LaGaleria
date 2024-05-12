@@ -1,6 +1,7 @@
 // adminController.js
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
+const Product = require('../models/product');
 
 // Función para obtener el usuario de la sesión
 async function getUserFromSession(req) {
@@ -31,16 +32,23 @@ exports.getAdminUsersPage = async (req, res) => {
         res.redirect('/admin');
     }
 };
+
 exports.getAdminProductsPage = async (req, res) => {
-    const user = await getUserFromSession(req);
-    // Aquí puedes agregar lógica adicional si es necesario, como cargar datos específicos para la vista
-    res.render('admin/products', { user });
+    try {
+        const products = await Product.find({}); // Obtiene todos los productos
+        const user = await getUserFromSession(req); // Obtiene el usuario actualmente autenticado
+        res.render('admin/products', { products, user }); // Pasa la lista de productos y el usuario a la vista
+    } catch (error) {
+        console.error('Error al obtener los productos:', error);
+        res.redirect('/admin');
+    }
 };
+
 
 exports.getEditUserPage = async (req, res) => {
     const userId = req.params.id;
     try {
-        const user = await User.findById(userId);
+        const user = await getUserFromSession(req);
         res.render('admin/editUser', { user });
     } catch (error) {
         console.error('Error al obtener el usuario para editar:', error);
@@ -68,5 +76,52 @@ exports.deleteUser = async (req, res) => {
     } catch (error) {
         console.error('Error al eliminar el usuario:', error);
         res.redirect('/admin/users');
+    }
+};
+
+
+exports.postAddProduct = async (req, res) => {
+    const { name, price, image, description } = req.body;
+    try {
+        const newProduct = new Product({ name, price, image, description });
+        await newProduct.save();
+        res.redirect('/admin/products'); // Redirige a la página de productos después de guardar
+    } catch (error) {
+        console.error('Error al agregar el producto:', error);
+        res.redirect('/admin/products'); // Redirige a la página de productos en caso de error
+    }
+};
+
+exports.getEditProductPage = async (req, res) => {
+    const productId = req.params.id;
+    try {
+        const product = await Product.findById(productId);
+        res.render('admin/editProduct', { product }); // Renderiza la vista de edición del producto
+    } catch (error) {
+        console.error('Error al obtener el producto para editar:', error);
+        res.redirect('/admin/products');
+    }
+};
+
+exports.postEditProduct = async (req, res) => {
+    const productId = req.params.id;
+    const { name, price, image, description } = req.body;
+    try {
+        await Product.findByIdAndUpdate(productId, { name, price, image, description });
+        res.redirect('/admin/products'); // Redirige a la página de productos después de guardar
+    } catch (error) {
+        console.error('Error al actualizar el producto:', error);
+        res.redirect('/admin/products'); // Redirige a la página de productos en caso de error
+    }
+};
+
+exports.deleteProduct = async (req, res) => {
+    const productId = req.params.id;
+    try {
+        await Product.findByIdAndDelete(productId);
+        res.redirect('/admin/products'); // Redirige a la página de productos después de eliminar
+    } catch (error) {
+        console.error('Error al eliminar el producto:', error);
+        res.redirect('/admin/products'); // Redirige a la página de productos en caso de error
     }
 };
