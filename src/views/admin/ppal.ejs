@@ -1,12 +1,22 @@
-<main>
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a href="/admin/users" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Administrar Usuarios
-            </a>
-            <a href="/admin/products" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                Administrar Productos
-            </a>
+<main class="mx-auto max-w-7xl flex-1 w-full">
+    <section class="grid gap-4 md:gap-8 p-4 md:p-6">
+        <div class="px-8 py-4 rounded-lg border bg-header-registro2 text-white shadow-sm ">
+            <!-- ENCABEZADO -->
+            <div class="flex justify-between items-center mb-4">
+                <!-- TÍTULO -->
+                <h1 class="text-3xl font-semibold text-yellow-500">PANEL DE ADMIN</h1>
+            </div>
+            <!-- CONTENIDO -->
+            <div class="grid grid-cols-2 gap-4 text-center bg-header-registro font-bold p-10 rounded-lg">
+                <a href="/admin/users"
+                    class="border hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500 py-20 px-4 rounded">
+                    <span class="text-3xl">Administrar Usuarios</span>
+                </a>
+                <a href="/admin/products"
+                    class="border hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500 py-20 px-4 rounded">
+                    <span class="text-3xl">Administrar Productos</span>
+                </a>
+            </div>
         </div>
-    </div>
+    </section>
 </main>
