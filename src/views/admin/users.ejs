@@ -1,94 +1,123 @@
 <%- include("../templates/head") %>
-<%- include('../templates/header', { loggedIn: loggedIn }) %>
+    <%- include('../templates/header', { loggedIn: loggedIn }) %>
 
-<main class="mx-auto max-w-7xl flex-1 w-full">
-    <section class="grid gap-4 md:gap-8 p-4 md:p-6">
-        <h1 class="text-2xl font-bold text-center mb-4">Usuarios - Bienvenido</h1>
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-header-registro2 text-white">
-                    <tr>
-                        <th class="px-4 py-2">Nombre de Usuario</th>
-                        <th class="px-4 py-2">Correo Electrónico</th>
-                        <th class="px-4 py-2">Rol</th>
-                        <th class="px-4 py-2">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200">
-                    <% users.forEach(user => { %>
-                        <tr class="hover:bg-gray-100">
-                            <td class="px-4 py-2"><%= user.username %></td>
-                            <td class="px-4 py-2"><%= user.email %></td>
-                            <td class="px-4 py-2"><%= user.role %></td>
-                            <td class="px-4 py-2">
-                                <a href="#" class="text-blue-500 hover:text-blue-700" onclick="openEditModal('<%= user._id %>')">Editar</a>
-                                <a href="/admin/users/delete/<%= user._id %>" class="text-red-500 hover:text-red-700">Eliminar</a>
-                            </td>
-                        </tr>
-                    <% }); %>
-                </tbody>
-            </table>
-        </div>
-        <div class="mt-4">
-            <a href="/admin/users/add" class="bg-header-registro2 text-white px-4 py-2 rounded hover:bg-header-negro">Agregar Usuario</a>
-        </div>
-    </section>
-</main>
+        <main class="mx-auto max-w-7xl flex-1 w-full">
+            <section class="grid gap-4 md:gap-8 p-4 md:p-6">
+                <div class="px-8 py-4 rounded-lg border bg-header-registro2 text-white shadow-sm ">
+                    <!-- ENCABEZADO -->
+                    <div class="grid grid-cols-2 justify-between">
+                        <!-- PÁGINA -->
+                        <div class="grid items-center mb-2">
+                            <!-- TÍTULO -->
+                            <h1 class="text-3xl font-semibold text-yellow-500 mb-1">PANEL DE ADMIN</h1>
+                            <!-- SUBTÍTULO -->
+                            <h2 class="text-xl font-semibold text-yellow-500">Administración de usuarios</h2>
+                        </div>
+                        <!-- AGREGAR USUARIO -->
+                        <div class="flex justify-center items-center">
+                            <a href="/admin/users/add"
+                                class="border rounded-lg bg-header-registro2 px-4 py-2 rounded hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
+                                Agregar Usuario
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <!-- CONTENIDO -->
+                        <div class=" text-center bg-header-registro border-2 rounded-lg">
+                            <table class="w-full">
+                                <thead class="bg-header-registro">
+                                    <tr>
+                                        <th class="px-4 py-2">Username</th>
+                                        <th class="px-4 py-2">Email</th>
+                                        <th class="px-4 py-2">Rol</th>
+                                        <th class="px-4 py-2">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-blue-200">
+                                    <% users.forEach(user=> { %>
+                                        <tr class="hover:text-yellow-500">
+                                            <td class="px-4 py-2">
+                                                <%= user.username %>
+                                            </td>
+                                            <td class="px-4 py-2">
+                                                <%= user.email %>
+                                            </td>
+                                            <td class="px-4 py-2">
+                                                <%= user.role %>
+                                            </td>
+                                            <td class="px-4 py-2 flex justify-center gap-4">
+                                                <a href="#" class="text-blue-500 hover:text-blue-700"
+                                                    onclick="openEditModal('<%= user._id %>')">Editar</a>
+                                                <a href="/admin/users/delete/<%= user._id %>"
+                                                    class="text-red-500 hover:text-red-700">Eliminar</a>
+                                            </td>
+                                        </tr>
+                                        <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
 
-<!-- Modal de Edición -->
-<div id="editUserModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <!-- Overlay -->
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-        <!-- Modal -->
-        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                    Editar Usuario
-                </h3>
-                <form id="editUserForm" class="mt-4 space-y-4">
-                    <!-- Aquí irán los campos del formulario -->
-                </form>
+            </section>
+        </main>
+
+        <!-- Modal de Edición -->
+        <div id="editUserModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title"
+            role="dialog" aria-modal="true">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <!-- Overlay -->
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                <!-- Modal -->
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div
+                    class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                            Editar Usuario
+                        </h3>
+                        <form id="editUserForm" class="mt-4 space-y-4">
+                            <!-- Aquí irán los campos del formulario -->
+                        </form>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <button type="button"
+                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                            Guardar Cambios
+                        </button>
+                        <button type="button" id="cancel-button"
+                            class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
-                    Guardar Cambios
-                </button>
-                <button type="button" id="cancel-button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm">
-                    Cancelar
-                </button>
-            </div>
         </div>
-    </div>
-</div>
 
-<script>
-    function openEditModal(userId) {
-        // Aquí puedes cargar los datos del usuario en el formulario
-        // Por ejemplo, usando AJAX para obtener los datos del servidor
-        // editUserModal.classList.remove('hidden');
-    }
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const editUserModal = document.getElementById('editUserModal');
-        const cancelButton = document.querySelector('#cancel-button'); // Asegúrate de que el selector coincida
+        <script>
+            function openEditModal(userId) {
+                // Aquí puedes cargar los datos del usuario en el formulario
+                // Por ejemplo, usando AJAX para obtener los datos del servidor
+                // editUserModal.classList.remove('hidden');
+            }
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const editUserModal = document.getElementById('editUserModal');
+                const cancelButton = document.querySelector('#cancel-button'); // Asegúrate de que el selector coincida
 
-        if (cancelButton) { // Verifica que cancelButton no sea null
-            cancelButton.addEventListener('click', function() {
-                editUserModal.classList.add('hidden');
+                if (cancelButton) { // Verifica que cancelButton no sea null
+                    cancelButton.addEventListener('click', function () {
+                        editUserModal.classList.add('hidden');
+                    });
+                } else {
+                    console.error('No se encontró el botón de cancelar.');
+                }
+
+                function openEditModal(userId) {
+                    // Aquí puedes cargar los datos del usuario en el formulario
+                    // Por ejemplo, usando AJAX para obtener los datos del servidor
+                    // editUserModal.classList.remove('hidden');
+                }
+
+                // Aquí puedes agregar el código para manejar el envío del formulario
             });
-        } else {
-            console.error('No se encontró el botón de cancelar.');
-        }
-
-        function openEditModal(userId) {
-            // Aquí puedes cargar los datos del usuario en el formulario
-            // Por ejemplo, usando AJAX para obtener los datos del servidor
-            // editUserModal.classList.remove('hidden');
-        }
-
-        // Aquí puedes agregar el código para manejar el envío del formulario
-    });
-</script>
+        </script>
