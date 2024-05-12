@@ -10,7 +10,7 @@ exports.getRegisterPage = (req, res) => {
 exports.registerUser = async (req, res) => {
     try {
         // Extraer datos del cuerpo del formulario
-        const { username, email, password } = req.body;
+        const { username, email, password, role } = req.body;
 
         // Verificar si el usuario ya existe en la base de datos
         const existingUser = await User.findOne({ email });
@@ -25,7 +25,8 @@ exports.registerUser = async (req, res) => {
         const newUser = new User({
             username,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            role
         });
 
         // Guardar el nuevo usuario en la base de datos
@@ -64,11 +65,17 @@ exports.getLoginPage = (req, res) => {
 };
 
 exports.loginUser = async (req, res) => {
-    const { email, password } = req.body;
+    const { emailOrUsername, password } = req.body;
 
     try {
-        // Busca al usuario por su email en la base de datos
-        const user = await User.findOne({ email });
+        // Busca al usuario por email o nombre de usuario en la base de datos
+        const user = await User.findOne({
+            $or: [
+                { email: emailOrUsername.toLowerCase() }, // Convierte el email a minúsculas
+                { username: { $regex: new RegExp("^" + emailOrUsername, "i") } } // Ignora la capitalización del nombre de usuario
+            ]
+        });
+
         // Si no se encuentra al usuario, redirecciona al usuario de vuelta a la página de inicio de sesión
         if (!user) {
             return res.redirect('/login');
@@ -81,6 +88,7 @@ exports.loginUser = async (req, res) => {
         if (!passwordMatch) {
             return res.redirect('/login');
         }
+        
         // Si las contraseñas coinciden, establece la sesión y redirecciona al usuario a la página principal
         req.session.user = user;
         // Establecer el estado de autenticación en la sesión
@@ -100,6 +108,8 @@ exports.loginUser = async (req, res) => {
         res.status(500).send('Error interno del servidor');
     }
 };
+
+
 
 
 
