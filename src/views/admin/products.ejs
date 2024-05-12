@@ -1,3 +1,42 @@
 <%- include("../templates/head") %>
 <%- include('../templates/header', { loggedIn: loggedIn }) %>
 
+<main class="mx-auto max-w-7xl flex-1 w-full">
+    <section class="grid gap-4 md:gap-8 p-4 md:p-6">
+        <h1 class="text-2xl font-bold text-center mb-4">Productos - Bienvenido, <%= user.username %></h1>
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-header-registro2 text-white">
+                    <tr>
+                        <th class="px-4 py-2">Nombre</th>
+                        <th class="px-4 py-2">Precio</th>
+                        <th class="px-4 py-2">Imagen</th>
+                        <th class="px-4 py-2">Descripción</th>
+                        <th class="px-4 py-2">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <% products.forEach(product => { %>
+                        <tr class="hover:bg-gray-100">
+                            <td class="px-4 py-2"><%= product.name %></td>
+                            <td class="px-4 py-2"><%= product.price %></td>
+                            <td class="px-4 py-2">
+                                <img src="<%= product.image %>" alt="<%= product.name %>" class="w-16 h-16 object-cover rounded">
+                            </td>
+                            <td class="px-4 py-2"><%= product.description %></td>
+                            <td class="px-4 py-2">
+                                <a href="/admin/products/edit/<%= product._id %>" class="text-blue-500 hover:text-blue-700">Editar</a> |
+                                <form action="/admin/products/delete/<%= product._id %>" method="post" class="inline-block">
+                                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4">
+            <a href="/admin/products/add" class="bg-header-registro2 text-white px-4 py-2 rounded hover:bg-header-negro">Agregar Producto</a>
+        </div>
+    </section>
+</main>
