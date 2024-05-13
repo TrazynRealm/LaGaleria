@@ -23,6 +23,7 @@ exports.getAdminPage = async (req, res) => {
     // Aquí puedes agregar lógica adicional si es necesario, como cargar datos específicos para la vista
     res.render('admin', { user });
 };
+
 exports.getAdminUsersPage = async (req, res) => {
     try {
         const users = await User.find({}); // Asegúrate de que estás obteniendo los usuarios correctamente
@@ -81,9 +82,22 @@ exports.deleteUser = async (req, res) => {
 
 
 exports.postAddProduct = async (req, res) => {
-    const { name, price, image, description } = req.body;
+    const { name, price, description } = req.body;
+
+    // Verificar que los campos obligatorios estén presentes
+    if (!name || !price || !description) {
+        console.error('Faltan campos obligatorios para agregar el producto');
+        return res.status(400).send('Faltan campos obligatorios para agregar el producto');
+    }
+
     try {
-        const newProduct = new Product({ name, price, image, description });
+        const newProduct = new Product({ name, price, description });
+
+        // Si se proporciona una imagen, asignarla al producto
+        if (req.file) {
+            newProduct.image = req.file.path;
+        }
+
         await newProduct.save();
         res.redirect('/admin/products'); // Redirige a la página de productos después de guardar
     } catch (error) {
@@ -91,6 +105,7 @@ exports.postAddProduct = async (req, res) => {
         res.redirect('/admin/products'); // Redirige a la página de productos en caso de error
     }
 };
+
 
 exports.getEditProductPage = async (req, res) => {
     const productId = req.params.id;

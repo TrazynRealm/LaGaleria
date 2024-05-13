@@ -10,6 +10,7 @@
                     X
                 </button>
             </div>
+            <!-- Formulario del modal -->
             <form id="createProductForm" class="mt-4 space-y-4">
                 <!-- Campos del formulario -->
                 <input type="text" name="name" placeholder="Nombre del Producto" class="form-control bg-header-registro rounded-lg p-4 w-full mt-1 focus:outline-none focus:border-yellow-500">
@@ -17,11 +18,71 @@
                 <input type="file" name="image" class="form-control bg-header-registro rounded-lg p-4 w-full mt-1 focus:outline-none focus:border-yellow-500">
                 <textarea name="description" placeholder="Descripción" class="form-control bg-header-registro rounded-lg p-4 w-full mt-1 focus:outline-none focus:border-yellow-500 h-32"></textarea>
             </form>
+            <!-- Botón para guardar el producto -->
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-transparent border-2 border-white text-white hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
+                <button id="saveProductButton" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-transparent border-2 border-white text-white hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
                     Guardar Producto
                 </button>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Script para manejar la apertura y cierre del modal de creación de producto -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Obtener referencia al botón para abrir el modal
+        const openModalButton = document.getElementById('openCreateProductModalButton');
+        
+        // Obtener referencia al modal
+        const createProductModal = document.getElementById('createProductModal');
+        
+        // Obtener referencia al botón para cerrar el modal
+        const closeModalButton = document.getElementById('closeModalButton');
+
+        // Obtener referencia al botón para guardar el producto
+        const saveProductButton = document.getElementById('saveProductButton');
+
+        // Función para mostrar el modal
+        function openModal() {
+            createProductModal.classList.remove('hidden');
+        }
+        
+        // Función para ocultar el modal
+        function closeModal() {
+            createProductModal.classList.add('hidden');
+        }
+        
+        // Agregar evento click al botón de abrir modal
+        openModalButton.addEventListener('click', openModal);
+        
+        // Agregar evento click al botón de cerrar modal
+        closeModalButton.addEventListener('click', closeModal);
+
+        // Agregar evento click al botón de guardar producto
+        saveProductButton.addEventListener('click', async () => {
+            const form = document.getElementById('createProductForm');
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('/admin/products/add', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    // Producto creado correctamente, cerrar el modal y recargar la página para mostrar el nuevo producto
+                    closeModal();
+                    window.location.reload();
+                } else {
+                    // Error al crear el producto, mostrar un mensaje de error al usuario
+                    console.error('Error al crear el producto:', response.statusText);
+                    alert('Error al crear el producto. Por favor, inténtalo de nuevo.');
+                }
+            } catch (error) {
+                console.error('Error al crear el producto:', error);
+                alert('Error al crear el producto. Por favor, inténtalo de nuevo.');
+            }
+        });
+    });
+</script>
