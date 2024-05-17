@@ -1,79 +1,98 @@
 <%- include("../templates/head") %>
-<%- include('../templates/header', { loggedIn: loggedIn }) %>
+    <%- include('../templates/header', { loggedIn: loggedIn }) %>
 
-<main class="mx-auto max-w-7xl flex-1 w-full">
-    <section class="grid gap-4 md:gap-8 p-4 md:p-6">
-        <div class="px-8 py-4 rounded-lg border bg-header-registro2 text-white shadow-sm">
-            <!-- ENCABEZADO -->
-            <h1 class="text-3xl font-semibold text-yellow-500 text-center mb-4">Productos - Bienvenido, <%= user.username %></h1>
-            <!-- CONTENIDO -->
-            <div class="overflow-x-auto bg-header-registro border-2 rounded-lg">
-                <table class="w-full">
-                    <thead class="bg-header-registro">
-                        <tr>
-                            <th class="px-4 py-2">Nombre</th>
-                            <th class="px-4 py-2">Precio</th>
-                            <th class="px-4 py-2">Imagen</th>
-                            <th class="px-4 py-2">Descripción</th>
-                            <th class="px-4 py-2">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-blue-200">
-                        <% products.forEach(product => { %>
-                            <tr class="hover:text-yellow-500">
-                                <td class="px-4 py-2"><%= product.name %></td>
-                                <td class="px-4 py-2"><%= product.price %></td>
-                                <td class="px-4 py-2">
-                                    <img src="<%= product.image %>" alt="<%= product.name %>" class="w-16 h-16 object-cover rounded">
-                                </td>
-                                <td class="px-4 py-2"><%= product.description %></td>
-                                <td class="px-4 py-2 flex justify-center gap-4">
-                                    <button id="openEditProductModal_<%= product._id %>" class="text-blue-500 hover:text-blue-700">Editar</button>
-                                    <button id="openDeleteProductModal_<%= product._id %>" class="text-red-500 hover:text-red-700">Eliminar</button>
-                                </td>
-                            </tr>
-                            <%- include("cProduct") %>
-                            <%- include("dProduct", { product: product }) %>
-                        <% }); %>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="mt-4">
-            <!-- Botón para abrir el modal de creación de producto -->
-            <button id="openCreateProductModalButton" class=" text-white border rounded-lg bg-header-registro2 px-4 py-2 hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">Agregar Producto</button>
-        </div>
-    </section>
-</main>
+        <main class="mx-auto max-w-7xl flex-1 w-full">
+            <section class="grid gap-4 md:gap-8 p-4 md:p-6">
+                <div class="px-8 py-4 rounded-lg border bg-header-registro2 text-white shadow-sm">
+                    <!-- ENCABEZADO -->
+                    <div class="flex justify-between">
+                        <div class="grid items-center mb-2">
+                            <!-- TÍTULO -->
+                            <h1 class="text-3xl font-semibold text-yellow-500 mb-1">PANEL DE ADMIN</h1>
+                            <!-- SUBTÍTULO -->
+                            <h2 class="text-xl font-semibold text-yellow-500">Administración de productos</h2>
+                        </div>
+                        <!-- Botón para abrir el modal de creación de producto -->
+                        <div class="mt-4">
+                            <button id="openCreateProductModalButton"
+                                class=" text-white border rounded-lg bg-header-registro2 px-4 py-2 hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">Agregar
+                                Producto</button>
+                        </div>
+                    </div>
+                    <!-- CONTENIDO -->
+                    <div class="mt-4">
+                        <div class="text-center bg-header-registro border-2 rounded-lg">
+                            <table class="w-full">
+                                <thead class="bg-header-registro">
+                                    <tr>
+                                        <th class="px-4 py-2">Nombre</th>
+                                        <th class="px-4 py-2">Precio</th>
+                                        <th class="px-4 py-2">Imagen</th>
+                                        <th class="px-4 py-2">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-blue-200">
+                                    <% products.forEach(product=> { %>
+                                        <tr class="hover:text-yellow-500">
+                                            <td class="px-4 py-2">
+                                                <%= product.name %>
+                                            </td>
+                                            <td class="px-4 py-2">
+                                                <%= product.price %> €
+                                            </td>
+                                            <td class="px-4 py-2 flex justify-center items-center">
+                                                <img src="<%= product.image %>" alt="<%= product.name %>"
+                                                    class=" object-cover rounded">
+                                            </td>
+                                            <td class="px-4 py-2 gap-4">
+                                            <div class="flex justify-center gap-4">
+                                                <button id="openEditProductModal_<%= product._id %>"
+                                                    class="text-blue-500 hover:text-blue-700">Editar</button>
+                                                <button id="openDeleteProductModal_<%= product._id %>"
+                                                    class="text-red-500 hover:text-red-700">Eliminar</button>
+                                            
+                                            </div>  
+                                            </td>
+                                        </tr>
+                                        <%- include("cProduct") %>
+                                            <%- include("dProduct", { product: product }) %>
+                                                <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
 
-<!-- Modal de Creación de Producto -->
+        <!-- Modal de Creación de Producto -->
 
-<!-- Script para manejar la apertura y cierre del modal de creación de producto -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Obtener referencia al botón para abrir el modal
-        const openModalButton = document.getElementById('openCreateProductModalButton');
-        
-        // Obtener referencia al modal
-        const createProductModal = document.getElementById('createProductModal');
-        
-        // Obtener referencia al botón para cerrar el modal
-        const closeModalButton = document.getElementById('closeModalButton');
-        
-        // Función para mostrar el modal
-        function openModal() {
-            createProductModal.classList.remove('hidden');
-        }
-        
-        // Función para ocultar el modal
-        function closeModal() {
-            createProductModal.classList.add('hidden');
-        }
-        
-        // Agregar evento click al botón de abrir modal
-        openModalButton.addEventListener('click', openModal);
-        
-        // Agregar evento click al botón de cerrar modal
-        closeModalButton.addEventListener('click', closeModal);
-    });
-</script>
+        <!-- Script para manejar la apertura y cierre del modal de creación de producto -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Obtener referencia al botón para abrir el modal
+                const openModalButton = document.getElementById('openCreateProductModalButton');
+
+                // Obtener referencia al modal
+                const createProductModal = document.getElementById('createProductModal');
+
+                // Obtener referencia al botón para cerrar el modal
+                const closeModalButton = document.getElementById('closeModalButton');
+
+                // Función para mostrar el modal
+                function openModal() {
+                    createProductModal.classList.remove('hidden');
+                }
+
+                // Función para ocultar el modal
+                function closeModal() {
+                    createProductModal.classList.add('hidden');
+                }
+
+                // Agregar evento click al botón de abrir modal
+                openModalButton.addEventListener('click', openModal);
+
+                // Agregar evento click al botón de cerrar modal
+                closeModalButton.addEventListener('click', closeModal);
+            });
+        </script>
