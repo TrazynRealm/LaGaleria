@@ -1,18 +1,56 @@
 <%- include("../templates/head") %>
-<%- include('../templates/header', { loggedIn: loggedIn }) %>
+    <%- include('../templates/header', { loggedIn: loggedIn }) %>
 
-<div class="container mx-auto py-6">
-    <div class="max-w-4xl mx-auto">
-        <h2 class="text-3xl font-semibold mb-4"><%= product.name %></h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-                <img src="https://via.placeholder.com/300x200" alt="<%= product.name %>" class="rounded-lg">
-            </div>
-            <div>
-                <p class="text-gray-600"><%= product.description %></p>
-                <p class="text-xl font-semibold mt-4">$<%= product.price %></p>
-                <button class="bg-blue-500 text-white py-2 px-4 mt-4 rounded-lg">Añadir al carrito</button>
-            </div>
-        </div>
-    </div>
-</div>
+        <main class="mx-auto max-w-7xl flex-1 w-full">
+            <section class="grid gap-4 md:gap-8 p-4 md:p-6">
+                <div class="px-8 py-4 rounded-lg border bg-header-registro2 text-white shadow-sm ">
+                    <!-- ENCABEZADO -->
+                    <div class="flex justify-between items-center mb-4">
+                        <!-- TÍTULO -->
+                        <h1 class="text-3xl font-semibold text-yellow-500">PRODUCTOS</h1>
+                    </div>
+
+
+                    <!-- NOMBRE PRODUCTO -->
+                    <h2 class="text-xl underline font-semibold text-yellow-500">
+                        <%= product.name %>
+                    </h2>
+                    <!-- CONTENIDO -->
+                    <div class="container mx-auto py-6">
+                        <div class="bg-header-registro p-6 rounded-lg shadow-md grid">
+                            <div class="grid grid-cols-2 gap-4">
+                                <!-- BLOQUE IZQ -->
+                                <div class="justify-center grid">
+                                    <div class="">
+                                        <!-- Imagen -->
+                                        <img src="https://via.placeholder.com/300x200" alt="<%= product.name %>"
+                                            class="rounded-lg">
+                                    </div>
+                                    <div class="grid grid-cols-2 justify-evenly items-center mt-4">
+                                        <!-- Precio -->
+                                        <p class="text-xl font-semibold flex justify-center">
+                                            <%= product.price %> €
+                                        </p>
+                                        <!-- Añadir al carrito -->
+                                        <div class="flex justify-center">
+                                            <form action="/cart/addFromDetail" method="POST">
+                                                <input type="hidden" name="productId" value="<%= product._id %>">
+                                                <button type="submit"
+                                                    class="bg-header-registro py-2 px-8 rounded-lg hover:text-yellow-500">
+                                                    <i class="fa-solid fa-shopping-cart" aria-label="Carrito"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- BLOQUE DCHA -->
+                                <!-- Descripción -->
+                                <p class="bg-header-registro rounded-lg p-10">
+                                    <%= product.description %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>

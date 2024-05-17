@@ -6,6 +6,16 @@ exports.addToCart = async (req, res) => {
         const { productId } = req.body;
         const userId = req.session.user._id;
 
+        // Verificar si hay un mensaje de notificación en la sesión
+        const notification = req.session.notification;
+        delete req.session.notification;
+
+        // Busca el producto por su ID
+        const product = await Product.findById(productId);
+        if (!product) {
+            return res.status(404).send('Producto no encontrado');
+        }
+
         // Busca el carrito del usuario
         let cart = await Cart.findOne({ user: userId });
 
@@ -30,6 +40,9 @@ exports.addToCart = async (req, res) => {
         // Guarda el carrito actualizado en la base de datos
         await cart.save();
 
+        // Establece la notificación en la sesión
+        req.session.notification = `${product.name} agregado al carrito exitosamente`;
+
         // Redirecciona al usuario de regreso a la página de productos después de agregar el producto al carrito
         res.redirect('/products');
 
@@ -41,11 +54,16 @@ exports.addToCart = async (req, res) => {
     }
 };
 
-
 exports.removeFromCart = async (req, res) => {
     try {
         const { productId } = req.body;
         const userId = req.session.user._id;
+
+        // Busca el producto por su ID
+        const product = await Product.findById(productId);
+        if (!product) {
+            return res.status(404).send('Producto no encontrado');
+        }
 
         // Busca el carrito del usuario
         const cart = await Cart.findOne({ user: userId });
@@ -55,12 +73,18 @@ exports.removeFromCart = async (req, res) => {
 
         // Si el producto está en el carrito, elimínalo
         if (productIndex !== -1) {
-            cart.products.splice(productIndex, 1); // Elimina el producto del carrito
-            await cart.save(); // Guarda el carrito actualizado en la base de datos
-            res.status(200).send('Producto eliminado del carrito exitosamente');
+            // Elimina el producto del carrito
+            cart.products.splice(productIndex, 1);
+            // Guarda el carrito actualizado en la base de datos
+            await cart.save();
+            // Agrega un mensaje de notificación
+            req.session.notification = `${product.name} eliminado del carrito exitosamente`;
+            // Redirige de nuevo al carrito
+            res.redirect('/cart');
         } else {
             res.status(404).send('Producto no encontrado en el carrito');
         }
+
     } catch (err) {
         console.error(err);
         res.status(500).send('Error al eliminar producto del carrito');
@@ -69,20 +93,42 @@ exports.removeFromCart = async (req, res) => {
 
 exports.updateCartItemQuantity = async (req, res) => {
     try {
-        const { productId, quantity } = req.body;
+        const { productId, action } = req.body;
         const userId = req.session.user._id;
+
+        // Busca el producto por su ID
+        const product = await Product.findById(productId);
+        if (!product) {
+            return res.status(404).send('Producto no encontrado');
+        }
 
         // Busca el carrito del usuario
         const cart = await Cart.findOne({ user: userId });
 
+        if (!cart) {
+            return res.status(404).send('Carrito no encontrado');
+        }
+
         // Encuentra el índice del producto en el carrito
         const productIndex = cart.products.findIndex(item => item.product.equals(productId));
 
-        // Si el producto está en el carrito, actualiza su cantidad
         if (productIndex !== -1) {
-            cart.products[productIndex].quantity = quantity;
+            // Aumentar o disminuir la cantidad basado en la acción
+            if (action === 'increase') {
+                cart.products[productIndex].quantity += 1;
+                // Agrega un mensaje de notificación
+                req.session.notification = `${product.name} añadido carrito exitosamente`;
+            } else if (action === 'decrease') {
+                cart.products[productIndex].quantity -= 1;
+                // Agrega un mensaje de notificación
+                req.session.notification = `${product.name} eliminado del carrito exitosamente`;
+                // Eliminar el producto si la cantidad es menor o igual a 0
+                if (cart.products[productIndex].quantity <= 0) {
+                    cart.products.splice(productIndex, 1);
+                }
+            }
             await cart.save(); // Guarda el carrito actualizado en la base de datos
-            res.status(200).send('Cantidad de producto en el carrito actualizada exitosamente');
+            res.redirect('/cart'); // Redirige de nuevo al carrito
         } else {
             res.status(404).send('Producto no encontrado en el carrito');
         }
@@ -92,8 +138,14 @@ exports.updateCartItemQuantity = async (req, res) => {
     }
 };
 
+
 exports.getCart = async (req, res) => {
     try {
+
+        // Verificar si hay un mensaje de notificación en la sesión
+        const notification = req.session.notification;
+        delete req.session.notification;
+
         // Verificar si el usuario está autenticado
         if (!req.session.user) {
             return res.status(401).send('Usuario no autenticado');
@@ -113,7 +165,7 @@ exports.getCart = async (req, res) => {
         const cart = await Cart.findOne({ user: userId }).populate('products.product');
 
         // Renderiza la vista 'cart' con el carrito como contexto
-        res.render('cart', { cart });
+        res.render('cart', { cart, notification });
     } catch (err) {
         console.error(err);
         res.status(500).send('Error al obtener el carrito del usuario');

@@ -1,25 +1,58 @@
-<div class="container mx-auto py-6">
-    <div class="max-w-4xl mx-auto">
-        <h2 class="text-3xl font-semibold mb-4">Productos</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <% if (products && products.length) { %>
-                <% products.forEach(product => { %>
-                    <div class="bg-white p-6 rounded-lg shadow-md">
-                        <!-- Placeholder online para la imagen -->
-                        <img src="https://via.placeholder.com/300x200" alt="<%= product.name %>" class="rounded-lg mb-4">
-                        <h3 class="text-xl font-semibold"><%= product.name %></h3>
-                        <p class="text-gray-600">$<%= product.price %></p>
-                        <!-- Botón para agregar producto al carrito -->
-                        <form action="/cart/add" method="POST">
-                            <input type="hidden" name="productId" value="<%= product._id %>">
-                            <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Añadir al carrito</button>
-                        </form>
-                        <a href="/products/<%= product._id %>" class="block mt-4 text-blue-500 hover:underline">Ver detalle</a>
+<main class="mx-auto max-w-7xl flex-1 w-full">
+    <section class="grid gap-4 md:gap-8 p-4 md:p-6">
+        <div class="px-8 py-4 rounded-lg border bg-header-registro2 text-white shadow-sm ">
+            <!-- ENCABEZADO -->
+            <div class="flex justify-between items-center mb-4">
+                <!-- TÍTULO -->
+                <h1 class="text-3xl font-semibold text-yellow-500">PRODUCTOS</h1>
+                <% if (notification) { %>
+                    <!-- NOTIFICACIÓN -->
+                    <div class="text-header-verde px-4 py-2 rounded-lg">
+                        <%= notification %>
                     </div>
-                <% }); %>
-            <% } else { %>
-                <p class="bg-white">No hay productos disponibles.</p>
-            <% } %>
+                    <% } %>
+            </div>
+            <!-- CONTENIDO -->
+            <div class="flex justify-center">
+            <div class="grid grid-cols-3 gap-4">
+                <% if (products && products.length) { %>
+                    <% products.forEach(product=> { %>
+                        <!-- CARD -->
+                        <div class="bg-header-registro p-6 rounded-lg shadow-md grid">
+                            <!-- BLOQUE ALTO -->
+                            <img src="https://via.placeholder.com/300x200" alt="<%= product.name %>"
+                                class="rounded-lg mb-4">
+                            <!-- BLOQUE MEDIO -->
+                            <div>
+                                <h3 class="text-md font-semibold">
+                                    <%= product.name %>
+                                </h3>
+                                <p class="text-yellow-500">
+                                    <%= product.price %> €
+                                </p>
+                            </div>
+                            <!-- BLOQUE BAJO -->
+                            <div class="flex justify-evenly items-center mt-4">
+                                <!-- Añadir al carrito -->
+                                <form action="/cart/add" method="POST">
+                                    <input type="hidden" name="productId" value="<%= product._id %>">
+                                    <button type="submit" class="bg-header-registro py-2 px-4 rounded-lg">
+                                        <i class="fa-solid fa-shopping-cart" aria-label="Carrito"></i>
+                                    </button>
+                                </form>
+                                <!-- Detalles del producto -->
+                                <a href="/products/<%= product._id %>"
+                                    class="block border rounded-lg px-2 py-1 hover:border-yellow-500 hover:text-yellow-500">
+                                    Ver detalle
+                                </a>
+                            </div>
+                        </div>
+                        <% }); %>
+                            <% } else { %>
+                                <p class="bg-white">No hay productos disponibles.</p>
+                                <% } %>
+            </div>
+            </div>
         </div>
-    </div>
-</div>
+    </section>
+</main>

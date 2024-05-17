@@ -1,4 +1,5 @@
-<header class="bg-gradient-to-b from-header-negro from-10% via-header-verde via-33% to-header-negro to-90% text-white py-4 justify-center">
+<header
+  class="bg-gradient-to-b from-header-negro from-10% via-header-verde via-33% to-header-negro to-90% text-white py-4 justify-center">
   <!-- CONTENEDOR HEADER -->
   <div class="px-5 sm:px-10 grid grid-cols-3 items-center">
     <!-- BRAND -->
@@ -21,30 +22,48 @@
     <div class="flex justify-end items-center space-x-4">
       <!-- Navbar para usuarios autenticados -->
       <% if (loggedIn) { %>
-          <div class="dropdown relative bg-transparent border-2 border-white text-white rounded-lg hover:bg-transparent hover:text-yellow-500 hover:border-yellow-500 cursor-pointer">
-              <input type="checkbox" id="toggleDropdown" class="hidden">
-              <label for="toggleDropdown">
-                  <i class="fa-solid fa-bars py-2 px-4"></i>
-              </label>
-              <ul class="dropdown-menu hidden absolute right-0 mt-2 py-2 bg-white border rounded-lg shadow-md w-auto">
-                
-                  <li><a href="/admin" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">ADMIN</a></li>
-               
-                  <li><a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Perfil</a></li>
-                  <li><a href="/cart" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Carrito</a></li>
-                  <li><a href="/logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</a></li>
-              </ul>
-          </div>
-      <% } else { %>
+        <!-- Dropdown en vista móvil -->
+        <div
+          class="lg:hidden dropdown relative bg-transparent border-2 border-white text-white rounded-lg hover:bg-transparent hover:text-yellow-500 hover:border-yellow-500 cursor-pointer">
+          <input type="checkbox" id="toggleDropdown" class="hidden">
+          <label for="toggleDropdown">
+            <i class="fa-solid fa-bars py-2 px-4"></i>
+          </label>
+          <ul class="dropdown-menu hidden absolute right-0 mt-2 py-2 bg-white border rounded-lg shadow-md w-auto">
+            <li><a href="/admin" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">ADMIN</a></li>
+            <li><a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Perfil</a></li>
+            <li><a href="/cart" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Carrito</a></li>
+            <li><a href="/logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</a></li>
+          </ul>
+        </div>
+        <!-- Enlaces desplegados en vistas más grandes -->
+        <div class="hidden lg:flex items-center space-x-4">
+          <a href="/admin" class="hover:text-yellow-500 bg-black rounded-lg px-2 py-1">
+            <i class="fa-solid fa-user-shield" aria-label="Admin"></i>
+          </a>
+          <a href="/profile" class="hover:text-yellow-500">
+            <i class="fa-solid fa-user mr-2" aria-label="Perfil"></i>
+          </a>
+          <a href="/cart" class="hover:text-yellow-500">
+            <i class="fa-solid fa-shopping-cart mr-2" aria-label="Carrito"></i>
+          </a>
+          <a href="/logout" class="hover:text-yellow-500">
+            <i class="fa-solid fa-sign-out-alt mr-2" aria-label="Logout"></i>
+          </a>
+        </div>
+        <% } else { %>
           <!-- Navbar para usuarios no autenticados -->
           <div class="hidden lg:flex items-center space-x-4">
-              <a href="/login" class="rounded-full hover:border-header-registro  py-1 px-4 hover:bg-gradient-to-b from-header-negro from-10% via-header-verde via-33% to-header-negro to-90%">Iniciar sesión</a>
-              <a href="/register" class="bg-transparent border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">Registrarse</a>
+            <a href="/login"
+              class="rounded-full hover:border-header-registro  py-1 px-4 hover:bg-gradient-to-b from-header-negro from-10% via-header-verde via-33% to-header-negro to-90%">Iniciar
+              sesión</a>
+            <a href="/register"
+              class="bg-transparent border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">Registrarse</a>
           </div>
-      <% } %>
-  </div>
-  
+          <% } %>
     </div>
+
+  </div>
   </div>
 
 </header>
