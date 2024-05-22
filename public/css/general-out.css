@@ -951,6 +951,12 @@ video {
 .pb-4 {
   padding-bottom: 1rem;
 }
+.pb-8 {
+  padding-bottom: 2rem;
+}
+.pe-20 {
+  padding-inline-end: 5rem;
+}
 .pe-4 {
   padding-inline-end: 1rem;
 }
@@ -971,12 +977,6 @@ video {
 }
 .pt-5 {
   padding-top: 1.25rem;
-}
-.pe-20 {
-  padding-inline-end: 5rem;
-}
-.pb-8 {
-  padding-bottom: 2rem;
 }
 .text-left {
   text-align: left;

@@ -1,6 +1,21 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
 const adminController = require('../controllers/adminController');
+
+// Configuración de multer
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/img/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, `${Date.now()}-${file.originalname}`);
+    }
+});
+
+const upload = multer({ storage: storage });
+
+
 
 router.get('/admin', adminController.getAdminPage);
 
@@ -14,7 +29,7 @@ router.delete('/admin/users/delete/:id', adminController.deleteUser);
 router.get('/admin/products', adminController.getAdminProductsPage);
 router.get('/admin/products/edit/:id', adminController.getEditProductPage); // Ruta para obtener la vista de edición de producto
 router.post('/admin/products/edit/:id', adminController.postEditProduct); // Ruta para procesar la edición de producto
-router.post('/admin/products/add', adminController.postAddProduct); // Ruta para agregar un nuevo producto
+router.post('/admin/products/add', upload.single('image'), adminController.postAddProduct); // Ruta para agregar un nuevo producto
 router.delete('/admin/products/delete/:id', adminController.deleteProduct); // Ruta para eliminar un producto
 
 module.exports = router;

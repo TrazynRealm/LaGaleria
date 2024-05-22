@@ -3,86 +3,55 @@
     <div class="flex items-center justify-center min-h-screen">
         <div class="px-8 py-4 rounded-lg border bg-gradient-to-t from-header-negro to-header-registro2 text-white shadow-sm">
             <div class="flex justify-between gap-5">
-                <!-- Contenido del modal aquí -->
                 <h2 class="text-xl font-semibold">Agregar Producto</h2>
-                <!-- Botón para cerrar el modal sin enviar producto -->
                 <button id="closeModalButton" class="bg-transparent border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
                     X
                 </button>
             </div>
-            <!-- Formulario del modal -->
             <form id="createProductForm" class="mt-4 space-y-4">
-                <!-- Campos del formulario -->
                 <input type="text" name="name" placeholder="Nombre del Producto" class="form-control bg-header-registro rounded-lg p-4 w-full mt-1 focus:outline-none focus:border-yellow-500">
                 <input type="number" name="price" placeholder="Precio" class="form-control bg-header-registro rounded-lg p-4 w-full mt-1 focus:outline-none focus:border-yellow-500">
                 <input type="file" name="image" class="form-control bg-header-registro rounded-lg p-4 w-full mt-1 focus:outline-none focus:border-yellow-500">
                 <textarea name="description" placeholder="Descripción" class="form-control bg-header-registro rounded-lg p-4 w-full mt-1 focus:outline-none focus:border-yellow-500 h-32"></textarea>
-            </form>
-            <!-- Botón para guardar el producto -->
-            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button id="saveProductButton" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-transparent border-2 border-white text-white hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
+                <button type="button" id="saveProductButton" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-transparent border-2 border-white text-white hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
                     Guardar Producto
                 </button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
 
-<!-- Script para manejar la apertura y cierre del modal de creación de producto -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Obtener referencia al botón para abrir el modal
-        const openModalButton = document.getElementById('openCreateProductModalButton');
-        
-        // Obtener referencia al modal
-        const createProductModal = document.getElementById('createProductModal');
-        
-        // Obtener referencia al botón para cerrar el modal
-        const closeModalButton = document.getElementById('closeModalButton');
+    document.addEventListener('DOMContentLoaded', () => {
+    const saveProductButton = document.getElementById('saveProductButton');
 
-        // Obtener referencia al botón para guardar el producto
-        const saveProductButton = document.getElementById('saveProductButton');
+    saveProductButton.addEventListener('click', async () => {
+        if (saveProductButton.disabled) return;
+        saveProductButton.disabled = true;
 
-        // Función para mostrar el modal
-        function openModal() {
-            createProductModal.classList.remove('hidden');
+        const form = document.getElementById('createProductForm');
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch('/admin/products/add', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                closeModal();
+                window.location.reload();
+            } else {
+                console.error('Error al crear el producto:', response.statusText);
+                window.location.reload();            }
+        } catch (error) {
+            console.error('Error al crear el producto:', error);
+            window.location.reload();
+                } finally {
+            saveProductButton.disabled = false;
         }
-        
-        // Función para ocultar el modal
-        function closeModal() {
-            createProductModal.classList.add('hidden');
-        }
-        
-        // Agregar evento click al botón de abrir modal
-        openModalButton.addEventListener('click', openModal);
-        
-        // Agregar evento click al botón de cerrar modal
-        closeModalButton.addEventListener('click', closeModal);
-
-        // Agregar evento click al botón de guardar producto
-        saveProductButton.addEventListener('click', async () => {
-            const form = document.getElementById('createProductForm');
-            const formData = new FormData(form);
-
-            try {
-                const response = await fetch('/admin/products/add', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (response.ok) {
-                    // Producto creado correctamente, cerrar el modal y recargar la página para mostrar el nuevo producto
-                    closeModal();
-                    window.location.reload();
-                } else {
-                    // Error al crear el producto, mostrar un mensaje de error al usuario
-                    console.error('Error al crear el producto:', response.statusText);
-                    alert('Error al crear el producto. Por favor, inténtalo de nuevo.');
-                }
-            } catch (error) {
-                console.error('Error al crear el producto:', error);
-                alert('Error al crear el producto. Por favor, inténtalo de nuevo.');
-            }
-        });
     });
+});
+
+
 </script>
