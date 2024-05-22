@@ -18,4 +18,7 @@ router.post('/cart/remove', cartController.removeFromCart);
 // Ruta para actualizar la cantidad de un producto en el carrito
 router.post('/cart/update', cartController.updateCartItemQuantity);
 
+// Ruta para obtener el total de productos en el carrito
+router.get('/cart/totalItems', cartController.getTotalItems);
+
 module.exports = router;
