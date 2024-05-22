@@ -70,18 +70,18 @@
 </header>
 
 <script>
-  async function updateCartCount() {
-    try {
-      const response = await fetch('/cart/totalItems');
-      const data = await response.json();
-      const cartCountElement = document.getElementById('cart-count');
-      cartCountElement.textContent = data.totalItems;
-    } catch (error) {
-      console.error('Error fetching cart data:', error);
-    }
-  }
+  // async function updateCartCount() {
+  //   try {
+  //     const response = await fetch('/cart/totalItems');
+  //     const data = await response.json();
+  //     const cartCountElement = document.getElementById('cart-count');
+  //     cartCountElement.textContent = data.totalItems;
+  //   } catch (error) {
+  //     console.error('Error fetching cart data:', error);
+  //   }
+  // }
 
-  document.addEventListener('DOMContentLoaded', updateCartCount);
+  // document.addEventListener('DOMContentLoaded', updateCartCount);
 
   // Opcional: Llama a updateCartCount() después de cada acción que modifica el carrito
 </script>

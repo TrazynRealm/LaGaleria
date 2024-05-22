@@ -84,28 +84,31 @@ exports.deleteUser = async (req, res) => {
 };
 
 
- exports.postAddProduct = async (req, res) => {
-     const { name, price, description } = req.body;
+exports.postAddProduct = async (req, res) => {
+    const { name, price, description } = req.body;
 
-     if (!name || !price || !description) {
-         console.error('Faltan campos obligatorios para agregar el producto');
-         return res.status(400).send('Faltan campos obligatorios para agregar el producto');
-     }
+    if (!name || !price || !description) {
+        console.error('Faltan campos obligatorios para agregar el producto');
+        return res.status(400).send('Faltan campos obligatorios para agregar el producto');
+    }
 
-     try {
-         const newProduct = new Product({ name, price, description });
+    try {
+        console.log('Creando nuevo producto:', { name, price, description });
+        const newProduct = new Product({ name, price, description });
 
-         if (req.file) {
-             newProduct.image = req.file.path;
-         }
+        if (req.file) {
+            newProduct.image = req.file.path;
+        }
 
-         await newProduct.save();
-         res.redirect('/admin/products');
-     } catch (error) {
-         console.error('Error al agregar el producto:', error);
-         res.redirect('/admin/products');
-     }
- };
+        await newProduct.save();
+        console.log('Producto creado con éxito:', newProduct);
+        res.redirect('/admin/products');
+    } catch (error) {
+        console.error('Error al agregar el producto:', error);
+        res.redirect('/admin/products');
+    }
+};
+
 
 
 exports.getEditProductPage = async (req, res) => {
