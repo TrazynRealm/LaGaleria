@@ -94,6 +94,23 @@
             </div>
             <% } %>
       </div>
+      <div class="grid justify-center pt-4 pb-2 gap-4">
+        <strong class="text-yellow-500 text-xl flex justify-center">Total: <%= cart.products.reduce((total, item)=>
+            total + item.product.price *
+            item.quantity, 0).toFixed(2) %> €</strong>
+        <div class="">
+          <a href="/checkout"
+            class="bg-header-registro border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
+            Proceder al pago
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-end">
+      <a href="/orderConfirmation"
+        class="bg-header-registro border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
+        Ver pedidos
+      </a>
     </div>
   </section>
 </main>

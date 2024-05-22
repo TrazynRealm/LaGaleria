@@ -1,6 +1,23 @@
 const Cart = require('../models/cart');
 const Product = require('../models/product');
 
+exports.getTotalItems = async (req, res) => {
+    try {
+        if (!req.session.user) {
+            return res.json({ totalItems: 0 });
+        }
+
+        const userId = req.session.user._id;
+        const cart = await Cart.findOne({ user: userId });
+        const totalItems = cart ? cart.products.reduce((acc, item) => acc + item.quantity, 0) : 0;
+        
+        res.json({ totalItems });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error al obtener el total de productos en el carrito');
+    }
+};
+
 exports.addToCart = async (req, res) => {
     try {
         const { productId } = req.body;
