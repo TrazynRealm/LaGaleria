@@ -12,7 +12,7 @@
             </div>
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <!-- Botón para confirmar la eliminación del producto -->
-                <form id="deleteProductForm_<%= product._id %>" action="/admin/products/delete/<%= product._id %>" method="post" class="inline-block">
+                <form id="deleteProductForm_<%= product._id %>" action="/admin/products/delete/<%= product._id %>?_method=DELETE" method="post" class="inline-block">
                     <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-transparent border-2 border-white text-white hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
                         Eliminar
                     </button>
