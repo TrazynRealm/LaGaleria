@@ -6,7 +6,7 @@ const router = express.Router();
 const pdfController = require('../controllers/pdfController');
 
 // Define la ruta GET para descargar el PDF
-router.get('/download-pdf', pdfController.downloadPDF);
+router.get('/download-pdf/:orderId', pdfController.downloadPDF);
 
 // Exporta el router para su uso en la aplicación principal
 module.exports = router;
