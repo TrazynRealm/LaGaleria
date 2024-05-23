@@ -2,7 +2,7 @@
   <section class="grid gap-4 md:gap-8 p-4 md:p-6">
     <div class="px-8 py-4 rounded-lg border bg-header-registro2 text-white shadow-sm">
       <!-- ENCABEZADO -->
-      <div class="flex justify-between items-center mb-2">
+      <div class="flex justify-between items-center mb-6">
         <!-- PARTE A -->
         <div>
           <!-- TÍTULO -->
@@ -10,13 +10,23 @@
           <!-- SUBTÍTULO -->
           <h2 class="text-xl font-semibold text-yellow-500">Tus productos</h2>
         </div>
+
         <!-- PARTE B -->
-        <% if (notification) { %>
-          <!-- NOTIFICACIÓN -->
-          <div class="text-header-verde px-4 py-2 rounded-lg">
-            <%= notification %>
+        <div>
+          <!-- VER PEDIDOS -->
+          <div class="flex justify-end">
+            <a href="/orders"
+              class="bg-header-registro border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
+              Ver pedidos
+            </a>
           </div>
-          <% } %>
+          <!-- NOTIFICACIÓN -->
+          <% if (notification) { %>
+            <div class="text-header-verde px-4 py-2 rounded-lg">
+              <%= notification %>
+            </div>
+            <% } %>
+        </div>
       </div>
 
       <!-- CONTENIDO -->
@@ -27,6 +37,7 @@
             <thead class="bg-header-registro">
               <tr class="text-center">
                 <th class="px-8 py-3 text-xs font-medium uppercase tracking-wider">Nombre</th>
+                <th class="px-8 py-3 text-xs font-medium uppercase tracking-wider">Imagen</th>
                 <th class="px-8 py-3 text-xs font-medium uppercase tracking-wider">Cantidad</th>
                 <th class="px-8 py-3 text-xs font-medium uppercase tracking-wider">€/ud.</th>
                 <th class="px-8 py-3 text-xs font-medium uppercase tracking-wider">Total</th>
@@ -38,6 +49,10 @@
                 <tr class="hover:text-yellow-500">
                   <td class="px-6 py-4 whitespace-nowrap">
                     <%= item.product.name %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap w-40">
+                    <img src="<%= item.product.image %>" alt="<%= item.product.name %>"
+                      class="object-cover rounded-lg w-50 mb-4" />
                   </td>
                   <!-- CANTIDAD -->
                   <td class="px-6 py-4 whitespace-nowrap">
@@ -105,12 +120,6 @@
           </a>
         </div>
       </div>
-    </div>
-    <div class="flex justify-end">
-      <a href="/orders"
-        class="bg-header-registro border-2 border-white text-white py-1 px-4 rounded-lg hover:bg-gradient-to-t from-header-negro to-header-registro2 hover:border-yellow-500">
-        Ver pedidos
-      </a>
     </div>
   </section>
 </main>

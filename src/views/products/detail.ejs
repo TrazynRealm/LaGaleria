@@ -21,19 +21,25 @@
                             <div class="grid grid-cols-2 gap-4">
                                 <!-- BLOQUE IZQ -->
                                 <div class="justify-center grid">
+                                    <!-- Imagen -->
                                     <div class="">
-                                        <!-- Imagen -->
-                                        <img src="https://via.placeholder.com/300x200" alt="<%= product.name %>"
-                                            class="rounded-lg">
+                                        <img src="<%= product.image %>" alt="<%= product.name %>"
+                                            class="object-cover rounded-lg w-96" />
                                     </div>
-                                    <div class="grid grid-cols-2 justify-evenly items-center mt-4">
-                                        <!-- Precio -->
-                                        <p class="text-xl font-semibold flex justify-center">
-                                            <%= product.price %> €
-                                        </p>
-                                        <!-- Añadir al carrito -->
-                                        <div class="flex justify-center">
-                                            <% if (loggedIn) { %>
+                                </div>
+                                <!-- BLOQUE DCHA -->
+                                <div class="grid bg-header-registro justify-evenly items-center rounded-lg">
+                                     <!-- Descripción -->
+                                     <p class="rounded-lg p-10 col-span-2">
+                                        <%= product.description %>
+                                    </p>
+                                    <!-- Precio -->
+                                    <p class="text-xl font-semibold flex justify-center">
+                                        <%= product.price %> €
+                                    </p>
+                                    <!-- Añadir al carrito -->
+                                    <div class="flex justify-center">
+                                        <% if (loggedIn) { %>
                                             <form action="/cart/addFromDetail" method="POST">
                                                 <input type="hidden" name="productId" value="<%= product._id %>">
                                                 <button type="submit"
@@ -42,14 +48,8 @@
                                                 </button>
                                             </form>
                                             <% } %>
-                                        </div>
                                     </div>
                                 </div>
-                                <!-- BLOQUE DCHA -->
-                                <!-- Descripción -->
-                                <p class="bg-header-registro rounded-lg p-10">
-                                    <%= product.description %>
-                                </p>
                             </div>
                         </div>
                     </div>

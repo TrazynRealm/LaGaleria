@@ -23,14 +23,10 @@ exports.addToCart = async (req, res) => {
         const { productId } = req.body;
         const userId = req.session.user._id;
 
-        // Verificar si hay un mensaje de notificación en la sesión
-        const notification = req.session.notification;
-        delete req.session.notification;
-
         // Busca el producto por su ID
         const product = await Product.findById(productId);
         if (!product) {
-            return res.status(404).send('Producto no encontrado');
+            return res.status(404).json({ message: 'Producto no encontrado' });
         }
 
         // Busca el carrito del usuario
@@ -47,29 +43,21 @@ exports.addToCart = async (req, res) => {
         // Agrega el producto al carrito o incrementa su cantidad si ya está presente
         const existingProductIndex = cart.products.findIndex(item => item.product.equals(productId));
         if (existingProductIndex !== -1) {
-            // Si el producto ya está en el carrito, incrementa su cantidad
             cart.products[existingProductIndex].quantity += 1;
         } else {
-            // Si el producto no está en el carrito, agrégalo con una cantidad inicial de 1
             cart.products.push({ product: productId, quantity: 1 });
         }
 
         // Guarda el carrito actualizado en la base de datos
         await cart.save();
 
-        // Establece la notificación en la sesión
-        req.session.notification = `${product.name} agregado al carrito exitosamente`;
-
-        // Redirecciona al usuario de regreso a la página de productos después de agregar el producto al carrito
-        res.redirect('/products');
-
-        // Envía una respuesta vacía con un código de estado 200 para indicar que la operación fue exitosa
-        res.status(200).send();
+        res.status(200).json({ message: `${product.name} agregado al carrito exitosamente` });
     } catch (err) {
         console.error(err);
-        res.status(500).send('Error al agregar producto al carrito');
+        res.status(500).json({ message: 'Error al agregar producto al carrito' });
     }
 };
+
 
 exports.removeFromCart = async (req, res) => {
     try {

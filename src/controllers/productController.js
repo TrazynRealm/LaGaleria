@@ -11,11 +11,10 @@ async function getProductById(productId) {
   }
 }
 
-// Función para obtener la lista de productos desde la base de datos
+// Función para obtener la lista de productos desde la base de datos y ordenarla alfabéticamente por nombre
 async function getProductList() {
   try {
-    // Obtener todos los productos de la base de datos
-    const productList = await Product.find();
+    const productList = await Product.find().sort({ name: 1 }); // Ordenar alfabéticamente por nombre
     return productList;
   } catch (error) {
     console.error('Error al obtener la lista de productos:', error);
