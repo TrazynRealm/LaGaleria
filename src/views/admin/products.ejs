@@ -70,8 +70,8 @@ loggedIn: loggedIn }) %>
                   </div>
                 </td>
               </tr>
-              <%- include("cProduct") %> <%- include("dProduct", { product:
-              product }) %> <% }); %>
+              <%- include("cProduct") %> <%- include("dProduct", { product: product }) %>
+              <% }); %>
             </tbody>
           </table>
         </div>
@@ -105,18 +105,17 @@ function openDeleteModal(event) {
 
     console.log("Producto a borrar:", productId); // Añadir esta línea para depurar
 
-    // Obtener el formulario de eliminación correspondiente al producto
-    const deleteForm = document.getElementById(`deleteProductForm_${productId}`);
-
-    // Configurar la acción del formulario para eliminar el producto correcto
-    deleteForm.action = `/admin/products/delete/${productId}?_method=DELETE`;
-
-    // Obtener referencia al modal de confirmación
-    const deleteProductModal = document.getElementById("deleteProductModal");
+    // Obtener el modal de confirmación correspondiente al producto
+    const deleteProductModal = document.getElementById(`deleteProductModal_${productId}`);
 
     // Mostrar el modal de confirmación
     deleteProductModal.classList.remove("hidden");
 }
+
+// Agregar evento click a todos los botones de eliminar producto
+openDeleteModalButtons.forEach((button) => {
+    button.addEventListener("click", openDeleteModal);
+});
 
 // Agregar evento click a todos los botones de eliminar producto
 openDeleteModalButtons.forEach((button) => {
