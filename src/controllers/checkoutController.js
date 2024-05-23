@@ -44,7 +44,7 @@ exports.processCheckout = async (req, res) => {
                 quantity: item.quantity
             })),
             total: cart.products.reduce((total, item) => total + item.product.price * item.quantity, 0),
-            status: 'completed',
+            status: 'pending',
             name,
             address,
             city,
