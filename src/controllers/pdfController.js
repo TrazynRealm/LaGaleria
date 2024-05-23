@@ -19,18 +19,21 @@ exports.downloadPDF = async (req, res) => {
         // Escribir el PDF en la respuesta HTTP
         doc.pipe(res);
 
-        // Agregar contenido al PDF
-        doc.fontSize(20).text('Detalle del pedido', { align: 'center' });
-
         // Verificar si se encontró la orden
         if (order) {
             // Agregar detalles de la orden al PDF
-            doc.moveDown().fontSize(16).text(`Orden ID: ${order._id}`);
-            doc.text(`Nombre: ${order.name}`);
-            doc.text(`Dirección: ${order.address}, ${order.city}, ${order.state}, ${order.zip}, ${order.country}`);
-            doc.text(`Número de tarjeta: ${order.cardNumber}`);
+            doc.fontSize(16).text(`Orden ID: ${order._id}`);
+            doc.moveDown().fontSize(14).text(`Nombre: ${order.name}`);
+            doc.moveDown().text(`Dirección: ${order.address}`);
+            doc.text(`Ciudad: ${order.city}`);
+            doc.text(`Estado/Provincia: ${order.state}`);
+            doc.text(`Código Postal: ${order.zip}`);
+            doc.text(`País: ${order.country}`);
+            doc.moveDown().text(`Número de tarjeta: **** **** **** ${order.cardNumber}`);
 
             // Agregar detalles de los productos al PDF
+            doc.moveDown().fontSize(20).text('Detalle del pedido');
+
             order.products.forEach(item => {
                 doc.moveDown().fontSize(12).text(`Producto: ${item.product.name}`);
                 doc.text(`Cantidad: ${item.quantity}`);
@@ -39,7 +42,7 @@ exports.downloadPDF = async (req, res) => {
             });
 
             // Agregar el total de la orden al PDF
-            doc.moveDown().fontSize(14).text(`Total: ${order.total.toFixed(2)} €`);
+            doc.moveDown().fontSize(20).text(`Total: ${order.total.toFixed(2)} €`);
         } else {
             // Si no se encuentra la orden, enviar un mensaje de error en el PDF
             doc.moveDown().text('Orden no encontrada');
