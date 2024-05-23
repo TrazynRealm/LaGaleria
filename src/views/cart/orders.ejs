@@ -1,0 +1,86 @@
+<%- include("../templates/head") %>
+  <%- include('../templates/header', { loggedIn: loggedIn }) %>
+
+    <main class="mx-auto max-w-7xl flex-1 w-full">
+      <section class="grid gap-4 md:gap-8 p-4 md:p-6">
+        <div class="px-8 py-4 rounded-lg border bg-header-registro2 text-white shadow-sm">
+          <!-- ENCABEZADO -->
+          <div class="flex justify-between items-center mb-2">
+            <!-- TÍTULO -->
+            <div>
+              <h1 class="text-3xl font-semibold text-yellow-500 mb-1">PEDIDOS</h1>
+              <h2 class="text-xl font-semibold text-yellow-500">Tus pedidos anteriores</h2>
+            </div>
+          </div>
+
+          <!-- LISTA DE PEDIDOS -->
+          <div class="text-center bg-header-registro border-2 rounded-lg">
+            <% if (orders && orders.length> 0) { %>
+              <% orders.forEach(order=> { %>
+                <div class="p-4 rounded-lg">
+                  <div class="grid text-start mb-2">
+                    <h2 class="text-xl text-yellow-500 font-semibold mb-2">Pedido
+                       <span class="text-white"><%= order._id %></span>
+                    </h2>
+                    <h3 class="text-yellow-500 font-semibold mb-2">Estado: 
+                       <span class="text-white"><%= order.status %></span>
+                    </h3>
+                  </div>
+                  <table class="w-full mb-2">
+                    <thead class="bg-header-registro">
+                      <tr class="text-center">
+                        <th class="px-8 py-3 text-xs font-medium uppercase tracking-wider">Nombre</th>
+                        <th class="px-8 py-3 text-xs font-medium uppercase tracking-wider">Cantidad</th>
+                        <th class="px-8 py-3 text-xs font-medium uppercase tracking-wider">€/ud.</th>
+                        <th class="px-8 py-3 text-xs font-medium uppercase tracking-wider">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-blue-200">
+                      <% order.products.forEach(item=> { %>
+                        <tr class="hover:text-yellow-500">
+                          <td class="px-6 py-4 whitespace-nowrap">
+                            <% if (item.product) { %>
+                              <%= item.product.name %>
+                                <% } else { %>
+                                  Producto no disponible
+                                  <% } %>
+                          </td>
+                          <td class="px-6 py-4 whitespace-nowrap">
+                            <%= item.quantity %>
+                          </td>
+                          <td class="px-6 py-4 whitespace-nowrap">
+                            <% if (item.product) { %>
+                              <%= item.product.price.toFixed(2) %> €
+                                <% } else { %>
+                                  N/A
+                                  <% } %>
+                          </td>
+                          <td class="px-6 py-4 whitespace-nowrap">
+                            <% if (item.product) { %>
+                              <%= (item.product.price * item.quantity).toFixed(2) %> €
+                                <% } else { %>
+                                  N/A
+                                  <% } %>
+                          </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                  </table>
+                  <div class="text-right font-bold text-yellow-500">
+                    Total del pedido: <%= order.products.reduce((total, item)=> {
+                      return item.product ? total + item.product.price * item.quantity : total;
+                      }, 0).toFixed(2) %> €
+                  </div>
+                  <hr class="mt-4">
+                </div>
+                <% }); %>
+                  <% } else { %>
+                    <div class="text-center">
+                      <h2 class="text-2xl font-bold mb-4">No tienes pedidos</h2>
+                      <p class="text-yellow-500">Aún no has realizado ningún pedido.</p>
+                    </div>
+                    <% } %>
+          </div>
+        </div>
+      </section>
+    </main>

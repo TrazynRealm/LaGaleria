@@ -14,7 +14,7 @@
             </div>
             <!-- CONTENIDO -->
             <div class="flex justify-center">
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-4 gap-4">
                 <% if (products && products.length) { %>
                     <% products.forEach(product=> { %>
                         <!-- CARD -->
@@ -34,12 +34,14 @@
                             <!-- BLOQUE BAJO -->
                             <div class="flex justify-evenly items-center mt-4">
                                 <!-- Añadir al carrito -->
+                                <% if (loggedIn) { %>
                                 <form action="/cart/add" method="POST">
                                     <input type="hidden" name="productId" value="<%= product._id %>">
                                     <button type="submit" class="bg-header-registro py-2 px-4 rounded-lg">
                                         <i class="fa-solid fa-shopping-cart" aria-label="Carrito"></i>
                                     </button>
                                 </form>
+                                <% } %>
                                 <!-- Detalles del producto -->
                                 <a href="/products/<%= product._id %>"
                                     class="block border rounded-lg px-2 py-1 hover:border-yellow-500 hover:text-yellow-500">

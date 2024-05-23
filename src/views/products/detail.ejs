@@ -33,6 +33,7 @@
                                         </p>
                                         <!-- Añadir al carrito -->
                                         <div class="flex justify-center">
+                                            <% if (loggedIn) { %>
                                             <form action="/cart/addFromDetail" method="POST">
                                                 <input type="hidden" name="productId" value="<%= product._id %>">
                                                 <button type="submit"
@@ -40,6 +41,7 @@
                                                     <i class="fa-solid fa-shopping-cart" aria-label="Carrito"></i>
                                                 </button>
                                             </form>
+                                            <% } %>
                                         </div>
                                     </div>
                                 </div>

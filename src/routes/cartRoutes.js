@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const cartController = require('../controllers/cartController');
 const addProductFromDetailController = require('../controllers/addProductFromDetailController');
+const orderController = require('../controllers/orderController');
 
 // Ruta para obtener el carrito del usuario
 router.get('/cart', cartController.getCart);
@@ -20,5 +21,8 @@ router.post('/cart/update', cartController.updateCartItemQuantity);
 
 // Ruta para obtener el total de productos en el carrito
 router.get('/cart/totalItems', cartController.getTotalItems);
+
+// Nueva ruta para obtener los pedidos del usuario
+router.get('/orders', orderController.getOrders);
 
 module.exports = router;
