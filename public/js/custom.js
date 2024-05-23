@@ -47,7 +47,7 @@ function closeModal() {
 }
 
 // Event listener para abrir el modal cuando se hace clic en el botón
-document.getElementById("openModalButton").addEventListener("click", openModal);
+//document.getElementById("openModalButton").addEventListener("click", openModal);
 
 // Event listener para cerrar el modal cuando se hace clic fuera de él
 document.addEventListener("click", function(event) {

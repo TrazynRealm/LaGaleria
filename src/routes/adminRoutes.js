@@ -29,7 +29,11 @@ router.delete('/admin/users/delete/:id', adminController.deleteUser);
 router.get('/admin/products', adminController.getAdminProductsPage);
 router.get('/admin/products/edit/:id', adminController.getEditProductPage); // Ruta para obtener la vista de edición de producto
 router.post('/admin/products/edit/:id', adminController.postEditProduct); // Ruta para procesar la edición de producto
-router.post('/admin/products/add', upload.single('image'), adminController.postAddProduct); // Ruta para agregar un nuevo producto
+router.post('/admin/products/add', upload.single('image'), (req, res, next) => {
+    // Aquí construyes la ruta para la imagen a partir del nombre de archivo guardado
+    req.body.image = '/img/' + req.file.filename;
+    next();
+}, adminController.postAddProduct); // Ruta para agregar un nuevo producto
 router.delete('/admin/products/delete/:id', adminController.deleteProduct); // Ruta para eliminar un producto
 
 module.exports = router;

@@ -96,8 +96,8 @@ exports.postAddProduct = async (req, res) => {
         console.log('Creando nuevo producto:', { name, price, description });
         const newProduct = new Product({ name, price, description });
 
-        if (req.file) {
-            newProduct.image = req.file.path;
+        if (req.body.image) { // Aquí cambiamos de req.file.path a req.body.image
+            newProduct.image = req.body.image;
         }
 
         await newProduct.save();
@@ -108,6 +108,8 @@ exports.postAddProduct = async (req, res) => {
         res.redirect('/admin/products');
     }
 };
+
+
 
 
 
@@ -137,13 +139,16 @@ exports.postEditProduct = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
     const productId = req.params.id;
     try {
+        console.log('Intentando eliminar el producto con ID:', productId); // Agregar mensaje de registro
         await Product.findByIdAndDelete(productId);
+        console.log('Producto eliminado:', productId); // Agregar mensaje de registro
         res.redirect('/admin/products'); // Redirige a la página de productos después de eliminar
     } catch (error) {
         console.error('Error al eliminar el producto:', error);
         res.redirect('/admin/products'); // Redirige a la página de productos en caso de error
     }
 };
+
 
  exports.createProduct = async (req, res) => {
      try {
